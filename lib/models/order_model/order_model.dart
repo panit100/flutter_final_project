@@ -1,4 +1,4 @@
-import 'package:youtube_ecommerce/models/product_model/product_model.dart';
+import 'package:final_project/models/product_model/product_model.dart';
 
 class OrderModel {
   OrderModel({
