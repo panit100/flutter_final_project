@@ -84,11 +84,34 @@ class _InputScreen extends State<InputScreen> {
         id: singleItem["id"],
         name: singleItem["name"],
       );
-      //Adding user to the list.
+
       categories.add(item);
     }
 
     categoriesList = categories;
+  }
+
+  Future getProductList() async {
+    final response = await http.get(Uri.parse("${_localhost()}/getProduct"));
+
+    List<ProductModel> products = [];
+
+    var usersJsonList = json.decode(response.body);
+
+    for (var singleItem in usersJsonList) {
+      ProductModel item = ProductModel(
+          image: singleItem["image"],
+          id: singleItem["id"],
+          name: singleItem["name"],
+          description: singleItem["description"],
+          isFavourite: singleItem["isFavourite"],
+          price: singleItem["price"],
+          qty: singleItem["qty"]);
+
+      products.add(item);
+    }
+
+    productModelList = products;
   }
 
   void addData() async {
