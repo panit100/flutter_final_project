@@ -1,3 +1,4 @@
+import 'package:final_project/screens/signuppage.dart';
 import 'package:flutter/material.dart';
 
 class LoginRoute extends StatelessWidget {
@@ -113,6 +114,13 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
           ),
           Center(
             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                side: const BorderSide(
+                  width: 1,
+                  color: Colors.black
+                )
+              ),
               onPressed: (() {
                 onButtonPress();
                 //Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginRoute())); #Change LoginRoute to BuyShopRoute 
@@ -122,7 +130,7 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
                 width: 200,
                 child: Text('Login',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25),),
+                style: TextStyle(fontSize: 25,color: Colors.black),),
                 )
             ),
           ),
@@ -136,7 +144,34 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
                 ),
               ),
             )    
-          )
+          ),
+          const SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 30, right: 30),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  side: const BorderSide(width: 0, color: Colors.white),
+                  shadowColor: Colors.white),
+              onPressed: (() {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignUpRoute()));
+              }),
+              child: const SizedBox(
+                width: 200,
+                child: Text(
+                  "don't have an account? Sign Up",
+                  style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400),
+                ),
+              )),
+        ),
         ],
       );
   }
