@@ -1,4 +1,5 @@
 import 'package:final_project/screens/signuppage.dart';
+import 'package:final_project/screens/buyshop.dart';
 import 'package:flutter/material.dart';
 
 class LoginRoute extends StatelessWidget {
@@ -123,7 +124,7 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
               ),
               onPressed: (() {
                 onButtonPress();
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginRoute())); #Change LoginRoute to BuyShopRoute 
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const BuyShopRoute()));  
                 }
               ),
               child: const SizedBox(
