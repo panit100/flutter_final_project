@@ -1,3 +1,5 @@
+import 'package:final_project/screens/login.dart';
+import 'package:final_project/screens/signuppage.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatelessWidget {
@@ -41,7 +43,9 @@ class HomePageButtonState extends State<HomePageButton> {
           ),
           ElevatedButton(
             style: style,
-            onPressed: onPressedLogin,
+            onPressed:(() {Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginRoute()));
+            }),
             child: const SizedBox(
                 width: 250,
                 child: Center(
@@ -53,7 +57,9 @@ class HomePageButtonState extends State<HomePageButton> {
           ),
           ElevatedButton(
             style: style,
-            onPressed: onPressedSignUp,
+            onPressed: (() {Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const SignUpRoute()));
+            }),
             child: const SizedBox(
                 width: 250,
                 child: Center(
@@ -66,13 +72,3 @@ class HomePageButtonState extends State<HomePageButton> {
     );
   }
 }
-
-  void onPressedLogin()
-  {
-    //Redirect here
-  }
-
-  void onPressedSignUp()
-  {
-    //Redirect here
-  }
