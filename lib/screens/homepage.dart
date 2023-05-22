@@ -1,5 +1,5 @@
-import 'package:final_project/screens/loginpage.dart';
-import 'package:final_project/screens/signup.dart';
+import 'package:final_project/screens/login.dart';
+import 'package:final_project/screens/signuppage.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatelessWidget {
