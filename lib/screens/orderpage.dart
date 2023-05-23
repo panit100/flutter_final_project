@@ -28,7 +28,7 @@ class BuyShopRoutePageState extends State<BuyShopRoutePage> {
   @override
   void initState() {
       product_model.add(ProductModel(
-          image: "Artbook.png", id: "artbook", name: "artbook",price: 1000,description: 'off is suck',isFavourite: false));
+          image: "Artbook.png", id: "artbook", name: "Liberate Official Artbook",price: 1000,description: 'off is suck',isFavourite: false));
       orderlist.add(OrderModel(totalPrice: 1000, orderId: '001', payment: '1000', product: product_model[0], status: 'Wait for product',qty: 10));
       setState(() {});
       orderlist.add(OrderModel(totalPrice: 1000, orderId: '001', payment: '1000', product: product_model[0], status: 'Wait for product',qty: 99));

@@ -1,6 +1,7 @@
 import 'package:final_project/models/category_model/category_model.dart';
 import 'package:final_project/models/product_model/product_model.dart';
 import 'package:final_project/screens/orderpage.dart';
+import 'package:final_project/screens/profilepage.dart';
 import 'package:flutter/material.dart';
 
 class BuyShopRoute extends StatelessWidget {
@@ -96,11 +97,11 @@ class BuyShopPageState extends State<BuyShopPage> {
     onTap: (x) {
       if(x == 0)
       {
-        //Navigator.push(context,MaterialPageRoute(builder: (context) => const ProfilePageRoute))
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const ProfileRoute()));
       }
       if(x == 1)
       {
-        //Navigator.push(context,MaterialPageRoute(builder: (context) => const OrderPageRoute))
+        Navigator.push(context,MaterialPageRoute(builder: (context) => const OrderPageRoute()));
       }
     }));
   }

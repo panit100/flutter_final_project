@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:final_project/screens/aboutuspage.dart';
 import 'package:final_project/screens/homepage.dart';
+import 'package:final_project/screens/orderpage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -55,15 +56,17 @@ class ProfliePageState extends State<ProfliePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Scaffold(
+    appBar: AppBar(title: const Text('Order'),),
+    body: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
           height: 50,
         ),
-        Center(
-            child: Text(
+        const Center(
+          child: Text(
           'Account',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           textAlign: TextAlign.left,
@@ -100,7 +103,10 @@ class ProfliePageState extends State<ProfliePage> {
             child: ProfileButton(
           buttonIcon: Icons.shopping_bag_outlined,
           buttonTitle: 'Your Order',
-          onClick: () => {},
+          onClick: (() {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const OrderPageRoute()));
+          }),
         )),
         const SizedBox(
           height: 10,
@@ -165,6 +171,7 @@ class ProfliePageState extends State<ProfliePage> {
         // ),
         Center(child: ProfileText(title: 'Version 1.0.0')),
       ],
+      )
     );
   }
 }
