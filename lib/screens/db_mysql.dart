@@ -67,7 +67,16 @@ class _InputScreen extends State<InputScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await this.getCategoryList();
+      //Backend
+      // await this.getCategoryList();
+
+      //Mockup
+      categoriesList.add(CategoryModel(
+          image: "figure.png", id: "figure", name: "main figure"));
+      categoriesList.add(CategoryModel(
+          image: "figure.png", id: "figure", name: "main figure"));
+      categoriesList.add(CategoryModel(
+          image: "figure.png", id: "figure", name: "main figure"));
       setState(() {});
     });
     super.initState();
