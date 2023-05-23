@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:final_project/screens/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileRoute extends StatelessWidget {
   const ProfileRoute({super.key});
@@ -17,7 +20,31 @@ class ProfliePage extends StatefulWidget {
   State<ProfliePage> createState() => ProfliePageState();
 }
 
+// void switchImage() async {
+//   String imagePath = await GetImagePath();
+//   print(imagePath);
+// }
+
+// Future<String> GetImagePath() {
+//   return Future(() => null)
+// }
+
 class ProfliePageState extends State<ProfliePage> {
+  String? _username;
+  String? _email;
+  File? _image;
+
+  Future getImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+
+    final imageTemporary = File(image.path);
+
+    setState(() {
+      this._image = imageTemporary;
+    });
+  }
+
   bool isShow = false;
   void onButtonPress() {
     setState(() {
@@ -34,16 +61,6 @@ class ProfliePageState extends State<ProfliePage> {
         const SizedBox(
           height: 50,
         ),
-        // const Padding(
-        //   padding: EdgeInsets.only(left: 30),
-        //   child: SizedBox(
-        //       width: 700,
-        //       child: Text(
-        //         'Account',
-        //         style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        //         textAlign: TextAlign.left,
-        //       )),
-        // ),
         Center(
             child: Text(
           'Account',
@@ -56,129 +73,64 @@ class ProfliePageState extends State<ProfliePage> {
         Center(
             child: CircleAvatar(
           radius: 80,
-          backgroundImage: AssetImage('assets/images/profileimage.jpg'),
+          backgroundImage: (_image != null)
+              ? Image.file(_image!).image
+              : Image.asset('assets/images/profileimage.jpg').image,
         )),
         const SizedBox(
           height: 10,
         ),
         Center(
-            child: Text(
-          'Username',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        )),
+            child: UploadImageButton(title: 'Upload Image', onClick: getImage)),
+        const SizedBox(
+          height: 10,
+        ),
         Center(
-            child: Text(
-          'Email@mail.com',
-          style: TextStyle(fontSize: 15),
-        )),
+            child: UsernameText(
+                title:
+                    (_username != null) ? _username.toString() : 'Username')),
+        Center(
+            child: EmailText(
+                title: _email != null ? _email.toString() : 'Email@mail.com')),
         const SizedBox(
           height: 20,
         ),
         Center(
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  side: const BorderSide(width: 0, color: Colors.white),
-                  shadowColor: Colors.white),
-              onPressed: (() {
-                onButtonPress();
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginRoute())); #Change LoginRoute to BuyShopRoute
-              }),
-              child: const SizedBox(
-                width: 350,
-                child: ListTile(
-                  leading: Icon(Icons.shopping_bag_outlined),
-                  title: Text(
-                    'Your Order',
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-              )),
-        ),
+            child: ProfileButton(
+          buttonIcon: Icons.shopping_bag_outlined,
+          buttonTitle: 'Your Order',
+          onClick: () => {},
+        )),
         const SizedBox(
           height: 10,
         ),
         Center(
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  side: const BorderSide(width: 0, color: Colors.white),
-                  shadowColor: Colors.white),
-              onPressed: (() {
-                onButtonPress();
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginRoute())); #Change LoginRoute to BuyShopRoute
-              }),
-              child: const SizedBox(
-                width: 350,
-                child: ListTile(
-                  leading: Icon(Icons.shopping_bag_outlined),
-                  title: Text(
-                    'Favourite',
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-              )),
-        ),
+            child: ProfileButton(
+          buttonIcon: Icons.favorite_border_outlined,
+          buttonTitle: 'Favourite',
+          onClick: () => {},
+        )),
         const SizedBox(
           height: 10,
         ),
         Center(
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  side: const BorderSide(width: 0, color: Colors.white),
-                  shadowColor: Colors.white),
-              onPressed: (() {
-                onButtonPress();
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginRoute())); #Change LoginRoute to BuyShopRoute
-              }),
-              child: const SizedBox(
-                width: 350,
-                child: ListTile(
-                  leading: Icon(Icons.shopping_bag_outlined),
-                  title: Text(
-                    'About us',
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-              )),
-        ),
+            child: ProfileButton(
+          buttonIcon: Icons.info_outline,
+          buttonTitle: 'About us',
+          onClick: () => {},
+        )),
         const SizedBox(
           height: 10,
         ),
         Center(
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  side: const BorderSide(width: 0, color: Colors.white),
-                  shadowColor: Colors.white),
-              onPressed: (() {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Homepage()));
-              }),
-              child: const SizedBox(
-                width: 350,
-                child: ListTile(
-                  leading: Icon(Icons.shopping_bag_outlined),
-                  title: Text(
-                    'Log out',
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-              )),
-        ),
+            child: ProfileButton(
+          buttonIcon: Icons.logout_outlined,
+          buttonTitle: 'Log Out',
+          onClick: (() {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Homepage()));
+          }),
+        )),
         const SizedBox(
           height: 10,
         ),
@@ -207,12 +159,88 @@ class ProfliePageState extends State<ProfliePage> {
         //     ),
         //   ),
         // ),
-        Center(
-            child: Text(
-          'Version 1.0.0',
-          style: TextStyle(fontSize: 15),
-        )),
+        Center(child: ProfileText(title: 'Version 1.0.0')),
       ],
     );
   }
+}
+
+Widget ProfileButton({
+  required String buttonTitle,
+  required IconData buttonIcon,
+  required VoidCallback onClick,
+}) {
+  return Container(
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black,
+              side: const BorderSide(width: 0, color: Colors.white),
+              shadowColor: Colors.grey),
+          onPressed: onClick,
+          child: SizedBox(
+            width: 350,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 20,
+                ),
+                Icon(buttonIcon),
+                SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  buttonTitle,
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400),
+                )
+              ],
+            ),
+          )));
+}
+
+Widget ProfileText({required String title}) {
+  return Container(
+    child: Text(
+      title,
+      style: TextStyle(fontSize: 15),
+    ),
+  );
+}
+
+Widget UsernameText({required String title}) {
+  return Container(
+    child: Text(
+      title,
+      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+    ),
+  );
+}
+
+Widget EmailText({required String title}) {
+  return Container(
+    child: Text(
+      title,
+      style: TextStyle(fontSize: 15),
+    ),
+  );
+}
+
+Widget UploadImageButton({
+  required String title,
+  required VoidCallback onClick,
+}) {
+  return Container(
+      width: 280,
+      child: ElevatedButton(
+          onPressed: onClick,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 20,
+              ),
+              Text(title)
+            ],
+          )));
 }
