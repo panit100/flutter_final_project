@@ -1,3 +1,4 @@
+import 'package:final_project/models/user_model/user_model.dart';
 import 'package:flutter/material.dart';
 import '../models/category_model/category_model.dart';
 import '../models/product_model/product_model.dart';
@@ -61,6 +62,7 @@ class _InputScreen extends State<InputScreen> {
   List<CategoryModel> categoriesList = [];
   List<ProductModel> productModelList = [];
   Future? serverResponse;
+  Future? getUserDataResponse;
 
   @override
   void initState() {
@@ -169,6 +171,27 @@ class _InputScreen extends State<InputScreen> {
     });
 
     return items;
+  }
+
+  Future<UserModel> getUserData() async {
+    final response = await http.post(
+      Uri.parse(_localhost() + "/getUser"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': username.text,
+      }),
+    );
+
+    var responseData = json.decode(response.body);
+    //Creating a list to store input data;
+    UserModel userData = UserModel(
+        id: responseData["0"]["id"].toString(),
+        name: responseData["0"]["username"],
+        email: responseData["0"]["email"],
+        favouriteIds: responseData["0"]["favIds"]);
+    return userData;
   }
 
   @override
@@ -301,15 +324,30 @@ class _InputScreen extends State<InputScreen> {
             ),
           ),
         ),
+        // Column(children: <Widget>[
+        //   ElevatedButton(
+        //     onPressed: (() {
+        //       // debugPrint(username.text);
+        //       setState(() {
+        //         serverResponse = showData();
+        //       });
+        //     }),
+        //     child: Text("Show data"),
+        //     style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+        //   ),
+        //   SizedBox(
+        //     height: 20,
+        //   ),
+        // ]),
         Column(children: <Widget>[
           ElevatedButton(
             onPressed: (() {
               // debugPrint(username.text);
               setState(() {
-                serverResponse = showData();
+                getUserDataResponse = getUserData();
               });
             }),
-            child: Text("Show data"),
+            child: Text("Get user data"),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
           ),
           SizedBox(
@@ -317,7 +355,7 @@ class _InputScreen extends State<InputScreen> {
           ),
         ]),
         FutureBuilder(
-            future: serverResponse,
+            future: getUserDataResponse,
             builder: (BuildContext ctx, AsyncSnapshot snapshot) {
               if (snapshot.data == null) {
                 return Container(
@@ -328,23 +366,13 @@ class _InputScreen extends State<InputScreen> {
                 );
               } else {
                 debugPrint(snapshot.data.toString());
-                return ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: ((context, index) {
-                      return Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text(snapshot.data[index].id.toString()),
-                            Text(snapshot.data[index].username),
-                            Text(snapshot.data[index].password)
-                          ],
-                        ),
-                      );
-                    }));
+                return Container(
+                  child: Center(
+                    child: Text(
+                        "${snapshot.data.name} ===== ${snapshot.data.favouriteIds}"),
+                    // child: CircularProgressIndicator(),
+                  ),
+                );
               }
             }),
         categoriesList.isEmpty
