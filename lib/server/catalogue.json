@@ -1,23 +1,14 @@
-{
-    "figure":
+[
     {
         "id": "figure",
         "name":"main figure",
-        "description":"figure of main character",
-        "image":"figure.png",
-        "isFavourite": false,
-        "qty":20,
-        "price":200.25
+        "image":"figure.png"
     },
-    "keychain":
     {
         "id": "keychain",
         "name":"main keychain",
-        "description":"key chain of main character",
-        "image":"keychain.png",
-        "isFavourite": false,
-        "qty":20,
-        "price":200.25
+        "image":"keychain.png"
     }
-}
+]
+   
 
