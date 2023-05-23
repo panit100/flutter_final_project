@@ -26,6 +26,31 @@ class BuyShopRoutePageState extends State<BuyShopRoutePage> {
   List<CategoryModel> categoryList = [];
   List<ProductModel> productlist = [];
   @override
+  void initState() {
+       WidgetsBinding.instance.addPostFrameCallback((_) async {
+      //Backend
+      // await this.getCategoryList();
+
+      //Mockup
+      categoryList.add(CategoryModel(
+          image: "Artbook.png", id: "artbook", name: "main figure"));
+      categoryList.add(CategoryModel(
+          image: "Key1.png", id: "keychain1", name: "main figure"));
+      categoryList.add(CategoryModel(
+          image: "Key2.png", id: "keychain2", name: "main figure"));
+      categoryList.add(CategoryModel(
+          image: "Key3.png", id: "keychain3", name: "main figure"));
+      categoryList.add(CategoryModel(
+          image: "Key4.png", id: "keychain4", name: "main figure"));
+      categoryList.add(CategoryModel(
+          image: "Manga.png", id: "manga", name: "main figure"));
+      categoryList.add(CategoryModel(
+          image: "Standee.png", id: "standee", name: "main figure"));
+      setState(() {});
+    });
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(scrollDirection: Axis.vertical,child: Column(
@@ -53,7 +78,7 @@ class BuyShopRoutePageState extends State<BuyShopRoutePage> {
                   padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
                   child: ElevatedButton(
                   onPressed: () {},
-                  child: SizedBox(height: 120,width: 120,child: Image.asset("assets/images/${e.toString()}"))),
+                  child: SizedBox(height: 120,width: 120,child: Image.asset("assets/images/${e.image.toString()}"))),
                 )
               ).toList(),
             )
