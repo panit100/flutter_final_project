@@ -22,13 +22,13 @@ class BuyShopRoutePage extends StatefulWidget {
 }
 
 class BuyShopRoutePageState extends State<BuyShopRoutePage> {
-  List<String> test = ["Artbook.png","Key1.png","Key2.png","Key3.png","Key4.png","Manga.png","Artbook.png","Key1.png","Key2.png","Key3.png","Key4.png","Manga.png"];
   String username = '';
   List<CategoryModel> categoryList = [];
   List<ProductModel> productlist = [];
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(scrollDirection: Axis.vertical,child: Column(
+    return Scaffold(
+      body: SingleChildScrollView(scrollDirection: Axis.vertical,child: Column(
       children:[
         const SizedBox(
           height: 70,
@@ -48,18 +48,32 @@ class BuyShopRoutePageState extends State<BuyShopRoutePage> {
           child: Wrap(
             spacing: 20,
             runSpacing: 16,
-            children: test.map(
+            children: categoryList.map(
                   (e) => Padding(
                   padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
                   child: ElevatedButton(
                   onPressed: () {},
-                  child: SizedBox(height: 120,width: 120,child: Image.asset("assets/icons/${e.toString()}"))),
+                  child: SizedBox(height: 120,width: 120,child: Image.asset("assets/images/${e.toString()}"))),
                 )
               ).toList(),
             )
           )
         ],
       )
-    );
+    ),
+    bottomNavigationBar:BottomNavigationBar(items: const <BottomNavigationBarItem>[ 
+    BottomNavigationBarItem(icon: Icon(Icons.person),label: 'profile'),
+    BottomNavigationBarItem(icon: Icon(Icons.shop),label: 'Order')
+    ],
+    onTap: (x) {
+      if(x == 0)
+      {
+        //Navigator.push(context,MaterialPageRoute(builder: (context) => const ProfilePageRoute))
+      }
+      if(x == 1)
+      {
+        //Navigator.push(context,MaterialPageRoute(builder: (context) => const OrderPageRoute))
+      }
+    }));
   }
 }
