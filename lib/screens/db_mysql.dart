@@ -68,15 +68,16 @@ class _InputScreen extends State<InputScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       //Backend
-      // await this.getCategoryList();
+      await this.getCategoryList();
+      await this.getProductList();
 
       //Mockup
-      categoriesList.add(CategoryModel(
-          image: "figure.png", id: "figure", name: "main figure"));
-      categoriesList.add(CategoryModel(
-          image: "figure.png", id: "figure", name: "main figure"));
-      categoriesList.add(CategoryModel(
-          image: "figure.png", id: "figure", name: "main figure"));
+      // categoriesList.add(CategoryModel(
+      //     image: "figure.png", id: "figure", name: "main figure"));
+      // categoriesList.add(CategoryModel(
+      //     image: "figure.png", id: "figure", name: "main figure"));
+      // categoriesList.add(CategoryModel(
+      //     image: "figure.png", id: "figure", name: "main figure"));
       setState(() {});
     });
     super.initState();
@@ -123,6 +124,25 @@ class _InputScreen extends State<InputScreen> {
     }
 
     productModelList = products;
+  }
+
+  void updateProductList() async {
+    //test
+    productModelList.add(ProductModel(
+        image: "figure.png",
+        id: "figure2",
+        name: "figure2",
+        price: 300,
+        description: "WTF",
+        isFavourite: false));
+
+    final response = await http.post(
+      Uri.parse(_localhost() + "/updateProduct"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(productModelList),
+    );
   }
 
   void addData() async {
@@ -319,6 +339,17 @@ class _InputScreen extends State<InputScreen> {
               deleteData();
             }),
             child: Text("OK"),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: (() {
+              debugPrint("update product");
+              updateProductList();
+            }),
+            child: Text("Update Product"),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
           ),
         ]),
