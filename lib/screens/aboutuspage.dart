@@ -40,7 +40,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย ศศิโรจน์ ทิพทิพากร',
               number: '62120501009',
-              imagePath: 'assets/images/cute.png'),
+              imagePath: 'assets/images/jojoe.jpg'),
         ),
         const SizedBox(
           height: 20,
@@ -49,7 +49,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย กิตติพัฒน์ โนนหัวรอ',
               number: '62120501012',
-              imagePath: 'assets/images/cute.png'),
+              imagePath: 'assets/images/off.png'),
         ),
         const SizedBox(
           height: 20,
