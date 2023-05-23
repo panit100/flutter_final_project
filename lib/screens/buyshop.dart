@@ -1,5 +1,6 @@
 import 'package:final_project/models/category_model/category_model.dart';
 import 'package:final_project/models/product_model/product_model.dart';
+import 'package:final_project/screens/orderpage.dart';
 import 'package:flutter/material.dart';
 
 class BuyShopRoute extends StatelessWidget {
@@ -9,19 +10,19 @@ class BuyShopRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold
     (
-      body: BuyShopRoutePage()
+      body: BuyShopPage()
     );
   }
 }
 
-class BuyShopRoutePage extends StatefulWidget {
-  const BuyShopRoutePage({super.key});
+class BuyShopPage extends StatefulWidget {
+  const BuyShopPage({super.key});
 
   @override
-  State<BuyShopRoutePage> createState() => BuyShopRoutePageState();
+  State<BuyShopPage> createState() => BuyShopPageState();
 }
 
-class BuyShopRoutePageState extends State<BuyShopRoutePage> {
+class BuyShopPageState extends State<BuyShopPage> {
   String username = '';
   List<CategoryModel> categoryList = [];
   List<ProductModel> productlist = [];
@@ -77,7 +78,9 @@ class BuyShopRoutePageState extends State<BuyShopRoutePage> {
                   (e) => Padding(
                   padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
                   child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => const OrderPageRoute()));
+                  },
                   child: SizedBox(height: 120,width: 120,child: Image.asset("assets/images/${e.image.toString()}"))),
                 )
               ).toList(),
