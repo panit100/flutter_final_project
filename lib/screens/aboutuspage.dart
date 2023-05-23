@@ -58,7 +58,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย ทักษ์ดนัย ธาดาภิรมย์',
               number: '62120501016',
-              imagePath: 'assets/images/cute.png'),
+              imagePath: 'assets/images/tew.png'),
         ),
         const SizedBox(
           height: 20,
@@ -76,7 +76,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย ธีรวัฒน์ ทองปาน',
               number: '62120501026',
-              imagePath: 'assets/images/cute.png'),
+              imagePath: 'assets/images/kei.png'),
         ),
         const SizedBox(
           height: 20,
@@ -85,7 +85,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย กษิดิ์เดช ศรีเสกสรร',
               number: '62120501084',
-              imagePath: 'assets/images/cute.png'),
+              imagePath: 'assets/images/naoh.jpg'),
         ),
       ],
     ));
