@@ -26,7 +26,6 @@ class BuyShopPage extends StatefulWidget {
 class BuyShopPageState extends State<BuyShopPage> {
   String username = '';
   List<CategoryModel> categoryList = [];
-  List<ProductModel> productlist = [];
   @override
   void initState() {
        WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -48,6 +47,7 @@ class BuyShopPageState extends State<BuyShopPage> {
           image: "Manga.png", id: "manga", name: "main figure"));
       categoryList.add(CategoryModel(
           image: "Standee.png", id: "standee", name: "main figure"));
+      username = 'Tew';
       setState(() {});
     });
     super.initState();

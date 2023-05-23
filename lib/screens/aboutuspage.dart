@@ -6,7 +6,7 @@ class AboutusRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: AboutusPage());
+    return Scaffold(appBar: AppBar(title: const Text('About Us')),body: const AboutusPage());
   }
 }
 
@@ -17,7 +17,9 @@ class AboutusPage extends StatefulWidget {
   State<AboutusPage> createState() => AboutusPageState();
 }
 
+
 class AboutusPageState extends State<AboutusPage> {
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -28,7 +30,7 @@ class AboutusPageState extends State<AboutusPage> {
         const SizedBox(
           height: 50,
         ),
-        Center(
+        const Center(
             child: Text(
           'About us',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
@@ -40,7 +42,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย ศศิโรจน์ ทิพทิพากร',
               number: '62120501009',
-              imagePath: 'assets/images/jojoe.jpg'),
+              imagePath: 'assets/icons/jojoe.jpg'),
         ),
         const SizedBox(
           height: 20,
@@ -49,7 +51,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย กิตติพัฒน์ โนนหัวรอ',
               number: '62120501012',
-              imagePath: 'assets/images/off.png'),
+              imagePath: 'assets/icons/off.png'),
         ),
         const SizedBox(
           height: 20,
@@ -58,7 +60,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย ทักษ์ดนัย ธาดาภิรมย์',
               number: '62120501016',
-              imagePath: 'assets/images/tew.png'),
+              imagePath: 'assets/icons/tew.png'),
         ),
         const SizedBox(
           height: 20,
@@ -67,7 +69,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย พนิต สืบสกุลทอง',
               number: '62120501026',
-              imagePath: 'assets/images/cute.png'),
+              imagePath: 'assets/icons/cute.png'),
         ),
         const SizedBox(
           height: 20,
@@ -76,7 +78,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย ธีรวัฒน์ ทองปาน',
               number: '62120501026',
-              imagePath: 'assets/images/kei.png'),
+              imagePath: 'assets/icons/kei.jpg'),
         ),
         const SizedBox(
           height: 20,
@@ -85,7 +87,7 @@ class AboutusPageState extends State<AboutusPage> {
           child: Name(
               title: 'นาย กษิดิ์เดช ศรีเสกสรร',
               number: '62120501084',
-              imagePath: 'assets/images/naoh.jpg'),
+              imagePath: 'assets/icons/naoh.jpg'),
         ),
       ],
     ));

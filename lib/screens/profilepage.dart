@@ -11,7 +11,7 @@ class ProfileRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: ProfliePage());
+    return Scaffold(appBar: AppBar(title: const Text('Profile')),body: const ProfliePage());
   }
 }
 
@@ -57,7 +57,6 @@ class ProfliePageState extends State<ProfliePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    appBar: AppBar(title: const Text('Order'),),
     body: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,16 +191,16 @@ Widget ProfileButton({
             width: 350,
             child: Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Icon(buttonIcon),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Text(
                   buttonTitle,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 15,
                       color: Colors.white,
                       fontWeight: FontWeight.w400),
@@ -212,43 +211,37 @@ Widget ProfileButton({
 }
 
 Widget ProfileText({required String title}) {
-  return Container(
-    child: Text(
+  return Text(
       title,
-      style: TextStyle(fontSize: 15),
-    ),
+      style: const TextStyle(fontSize: 15),
   );
 }
 
 Widget UsernameText({required String title}) {
-  return Container(
-    child: Text(
+  return Text(
       title,
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-    ),
-  );
+      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+    );
 }
 
 Widget EmailText({required String title}) {
-  return Container(
-    child: Text(
+  return Text(
       title,
-      style: TextStyle(fontSize: 15),
-    ),
-  );
+      style: const TextStyle(fontSize: 15),
+    );
 }
 
 Widget UploadImageButton({
   required String title,
   required VoidCallback onClick,
 }) {
-  return Container(
+  return SizedBox(
       width: 280,
       child: ElevatedButton(
           onPressed: onClick,
           child: Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               Text(title)
