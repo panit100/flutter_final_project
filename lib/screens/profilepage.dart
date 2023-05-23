@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:final_project/screens/aboutuspage.dart';
 import 'package:final_project/screens/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -104,20 +105,23 @@ class ProfliePageState extends State<ProfliePage> {
         const SizedBox(
           height: 10,
         ),
-        Center(
-            child: ProfileButton(
-          buttonIcon: Icons.favorite_border_outlined,
-          buttonTitle: 'Favourite',
-          onClick: () => {},
-        )),
-        const SizedBox(
-          height: 10,
-        ),
+        // Center(
+        //     child: ProfileButton(
+        //   buttonIcon: Icons.favorite_border_outlined,
+        //   buttonTitle: 'Favourite',
+        //   onClick: () => {},
+        // )),
+        // const SizedBox(
+        //   height: 10,
+        // ),
         Center(
             child: ProfileButton(
           buttonIcon: Icons.info_outline,
           buttonTitle: 'About us',
-          onClick: () => {},
+          onClick: (() {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AboutusRoute()));
+          }),
         )),
         const SizedBox(
           height: 10,
