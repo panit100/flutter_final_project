@@ -1,0 +1,22 @@
+[
+    {
+        "id": "figure",
+        "name":"main figure",
+        "image":"figure.png",
+        "description": "description",
+        "isFavourite": false,
+        "price": 200.20,
+        "qty": 20
+    },
+    {
+        "id": "keychain",
+        "name":"main keychain",
+        "image":"keychain.png",
+        "description": "description",
+        "isFavourite": false,
+        "price": 200.20,
+        "qty": 20
+    }
+]
+   
+
