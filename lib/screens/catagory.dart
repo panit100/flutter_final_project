@@ -1,6 +1,10 @@
 import 'package:final_project/models/product_model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/widgets/inputscreen.dart';
+import 'widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'dart:convert';
 
 class CatagoryPage extends StatefulWidget {
   final String itemID;
@@ -8,6 +12,10 @@ class CatagoryPage extends StatefulWidget {
 
   @override
   State<CatagoryPage> createState() => CatagoryState();
+}
+
+String _localhost() {
+  return 'http://localhost:3000';
 }
 
 class CatagoryState extends State<CatagoryPage> {
@@ -21,17 +29,32 @@ class CatagoryState extends State<CatagoryPage> {
   bool isFavourite = false;
   Color favouriteColor = Colors.grey;
 
+  Future getProductList() async {
+    final response = await http.get(Uri.parse("${_localhost()}/getProduct"));
+
+    List<ProductModel> products = [];
+
+    var usersJsonList = json.decode(response.body);
+
+    for (var singleItem in usersJsonList) {
+      ProductModel item = ProductModel(
+          image: singleItem["image"],
+          id: singleItem["id"],
+          name: singleItem["name"],
+          description: singleItem["description"],
+          isFavourite: singleItem["isFavourite"],
+          price: double.parse(singleItem["price"].toString()),
+          qty: singleItem["qty"]);
+
+      products.add(item);
+    }
+
+    productList = products;
+  }
+
   @override
   void initState() {
-    //Get Data From Json
-    //productList.add(data);
-    productList.add(ProductModel(
-      image: 'Artbook.png', 
-      id: 'artbook', 
-      name: 'Artbook Liberate', 
-      price: 1000.0, 
-      description: 'หนังสือรวมภาพ illustration จากเกม Liberate สินค้าลิขสิทธิ์แท้จากผู้สร้างโดยตรงภายในจะประกอบไปด้วยรูปภาพภายในเกมรวมไปถึงแนวคิด ภาพร่าง และ หลักการออกแบบตัวละครต่างๆ ภายในเกมที่ไม่สามารถที่จะหาที่ไหนได้อีกแล้ว จำนวน 100 หน้า', isFavourite: false));
-
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       productList.map((e) => {
         if(e.id == widget.itemID)
         {
@@ -42,14 +65,17 @@ class CatagoryState extends State<CatagoryPage> {
           amount = 1,
           totalPrice = price * amount,
           isFavourite = e.isFavourite,
-          if (isFavourite == false) {
+          if (isFavourite == false)
+          {
           favouriteColor = Colors.grey
-          } else {
+          } 
+          else 
+          {
           favouriteColor = Colors.amber,
           }
         },
-      }).toList();
-    setState(() {
+        }).toList();
+    setState(() {});
     });
     super.initState();
   }

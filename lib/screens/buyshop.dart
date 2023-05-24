@@ -60,7 +60,7 @@ class BuyShopPageState extends State<BuyShopPage> {
   @override
   void initState() {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-      this.getCategoryList();
+      await this.getCategoryList();
       setState(() {});
     });
     super.initState();

@@ -131,15 +131,6 @@ class _InputScreen extends State<InputScreen> {
   }
 
   void updateProductList() async {
-    //test
-    productModelList.add(ProductModel(
-        image: "figure.png",
-        id: "figure2",
-        name: "figure2",
-        price: 300,
-        description: "WTF",
-        isFavourite: false));
-
     final response = await http.post(
       Uri.parse(_localhost() + "/updateProduct"),
       headers: <String, String>{
