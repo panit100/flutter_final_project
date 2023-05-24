@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const Homepage(),
-      home: const CatagoryPage(),
+      home: const Homepage(),
     );
   }
 }

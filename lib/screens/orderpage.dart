@@ -24,14 +24,13 @@ class BuyShopRoutePage extends StatefulWidget {
 class BuyShopRoutePageState extends State<BuyShopRoutePage> {
   String username = '';
   List<OrderModel> orderlist = [];
-  List<ProductModel> product_model =[];
+  ProductModel product = ProductModel(
+          image: "Artbook.png", id: "artbook", name: "Liberate Official Artbook",price: 1000,description: 'off is suck',isFavourite: false);
   @override
   void initState() {
-      product_model.add(ProductModel(
-          image: "Artbook.png", id: "artbook", name: "Liberate Official Artbook",price: 1000,description: 'off is suck',isFavourite: false));
-      orderlist.add(OrderModel(totalPrice: 1000, orderId: '001', payment: '1000', product: product_model[0], status: 'Wait for product',qty: 10));
+      orderlist.add(OrderModel(totalPrice: 1000, orderId: '001', payment: '1000', product: product, status: 'Wait for product',qty: 10));
       setState(() {});
-      orderlist.add(OrderModel(totalPrice: 1000, orderId: '001', payment: '1000', product: product_model[0], status: 'Wait for product',qty: 99));
+      orderlist.add(OrderModel(totalPrice: 1000, orderId: '001', payment: '1000', product: product, status: 'Wait for product',qty: 99));
       setState(() {});
     super.initState();
   }
@@ -45,7 +44,7 @@ class BuyShopRoutePageState extends State<BuyShopRoutePage> {
                   (e) =>  Padding(
                   padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
                   child: Container(
-                    color:Color.fromARGB(141, 172, 172, 172),
+                    color:const Color.fromARGB(141, 172, 172, 172),
                     width: 400,
                     height: 150,
                     child: SingleChildScrollView(

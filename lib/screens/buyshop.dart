@@ -1,5 +1,6 @@
 import 'package:final_project/models/category_model/category_model.dart';
 import 'package:final_project/models/product_model/product_model.dart';
+import 'package:final_project/screens/catagory.dart';
 import 'package:final_project/screens/favoritepage.dart';
 import 'package:final_project/screens/orderpage.dart';
 import 'package:final_project/screens/profilepage.dart';
@@ -81,7 +82,7 @@ class BuyShopPageState extends State<BuyShopPage> {
                   padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
                   child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => const OrderPageRoute()));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => CatagoryPage(itemID: e.id,)));
                   },
                   child: SizedBox(height: 120,width: 120,child: Image.asset("assets/images/${e.image.toString()}"))),
                 )

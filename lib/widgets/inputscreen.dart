@@ -1,5 +1,5 @@
 import 'package:final_project/screens/catagory.dart';
-import 'package:final_project/screens/homepage.dart';
+import 'package:final_project/screens/orderpage.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_final_project/lib/widgets/grid.dart';
 import 'widgets.dart';
@@ -91,9 +91,8 @@ class _InputScreen extends State<InputScreen> {
 
 Widget buttonNav(BuildContext context) {
   return TextButton(
-    onPressed: (() => Navigator.push(
-        context, MaterialPageRoute(builder: ((context) => CatagoryPage())))),
-    child: Padding(
+      onPressed: (() => Navigator.of(context).push(MaterialPageRoute(builder: ((context) => const OrderPageRoute())))),
+      child: Padding(
         padding: EdgeInsets.all(2.0),
         child: Text(
           "Buy",

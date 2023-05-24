@@ -1,40 +1,78 @@
+import 'package:final_project/models/product_model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/widgets/inputscreen.dart';
 
 class CatagoryPage extends StatefulWidget {
-  const CatagoryPage({super.key});
+  final String itemID;
+  const CatagoryPage({super.key,required this.itemID});
 
   @override
   State<CatagoryPage> createState() => CatagoryState();
 }
 
 class CatagoryState extends State<CatagoryPage> {
-  String mercendiseImg = "Artbook.png";
-  String mercendiseName = "Artbook";
-  String description =
-      "descriptionssssssssssssssssssaaaaaaaaasssssssssssssssssssssssssssssssssssssssssaaaaasssssssssssssssssssssssssdescriptionssssssssssssssssssaaaaaaaaasssssssssssssssssssssssssssssssssssssssssaaaaasssssssssssssssssssssssss";
-  int price = 10;
-  int amount = 0;
+  List<ProductModel> productList = [];
+  String mercendiseImg = '';
+  String mercendiseName = '';
+  String description = '';
+  double price = 10;
+  int amount = 1;
+  double totalPrice = 0;
   bool isFavourite = false;
   Color favouriteColor = Colors.grey;
 
-  void IncreaseAmount() {
+  @override
+  void initState() {
+    //Get Data From Json
+    //productList.add(data);
+    productList.add(ProductModel(
+      image: 'Artbook.png', 
+      id: 'artbook', 
+      name: 'Artbook Liberate', 
+      price: 1000.0, 
+      description: 'หนังสือรวมภาพ illustration จากเกม Liberate สินค้าลิขสิทธิ์แท้จากผู้สร้างโดยตรงภายในจะประกอบไปด้วยรูปภาพภายในเกมรวมไปถึงแนวคิด ภาพร่าง และ หลักการออกแบบตัวละครต่างๆ ภายในเกมที่ไม่สามารถที่จะหาที่ไหนได้อีกแล้ว จำนวน 100 หน้า', isFavourite: false));
+
+      productList.map((e) => {
+        if(e.id == widget.itemID)
+        {
+          mercendiseImg = e.image,
+          mercendiseName = e.name,
+          description = e.description,
+          price = e.price,
+          amount = 1,
+          totalPrice = price * amount,
+          isFavourite = e.isFavourite,
+          if (isFavourite == false) {
+          favouriteColor = Colors.grey
+          } else {
+          favouriteColor = Colors.amber,
+          }
+        },
+      }).toList();
+    setState(() {
+    });
+    super.initState();
+  }
+
+  void increaseAmount() {
     setState(() {
       if (amount < 99) {
         amount++;
+        totalPrice = amount * price;
       }
     });
   }
 
-  void DecreaseAmount() {
+  void decreaseAmount() {
     setState(() {
-      if (amount > 0) {
+      if (amount > 1) {
         amount--;
+        totalPrice = amount * price;
       }
     });
   }
 
-  void CheckFavourite() {
+  void checkFavourite() {
     setState(() {
       isFavourite = !isFavourite;
       if (isFavourite == false) {
@@ -48,29 +86,19 @@ class CatagoryState extends State<CatagoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 232, 232, 232),
+        backgroundColor:const Color.fromARGB(255, 232, 232, 232),
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 232, 232, 232),
+          iconTheme: const IconThemeData(color: Colors.black),
+          backgroundColor:const Color.fromARGB(255, 232, 232, 232),
           title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            const Padding(padding: EdgeInsets.only(left: 245.0)),
             FloatingActionButton(
+              heroTag: "btn1",
               backgroundColor:
-                  Color.fromARGB(255, 255, 255, 255).withOpacity(0),
+                  const Color.fromARGB(255, 255, 255, 255).withOpacity(0),
               elevation: 0.0,
               onPressed: () {
-                // Back Icon Pressed Action
-              },
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-            ),
-            Padding(padding: const EdgeInsets.only(left: 240.0)),
-            FloatingActionButton(
-              backgroundColor:
-                  Color.fromARGB(255, 255, 255, 255).withOpacity(0),
-              elevation: 0.0,
-              onPressed: () {
-                CheckFavourite();
+                checkFavourite();
               },
               child: Icon(Icons.star, color: favouriteColor),
             ),
@@ -78,27 +106,27 @@ class CatagoryState extends State<CatagoryPage> {
         ),
         bottomNavigationBar: BottomAppBar(
           color: Colors.white,
-          child: Container(
+          child: SizedBox(
             height: 50,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(padding: const EdgeInsets.only(left: 30.0)),
+                  const Padding(padding: EdgeInsets.only(left: 30.0)),
                   Column(children: [
                     Text(
-                      "  Price",
+                      ('Price ${price.toString()}'),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontSize: 20.0),
+                      style: const TextStyle(color: Colors.black, fontSize: 20.0),
                     ),
                     Text(
-                      "\$${price * amount}",
+                      'TotalPrice ${totalPrice.toString()}',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontSize: 20.0),
+                      style: const TextStyle(color: Colors.black, fontSize: 20.0),
                     ),
                   ]),
-                  Padding(padding: const EdgeInsets.only(left: 180.0)),
-                  buttonNav(context),
+                  const Padding(padding: EdgeInsets.only(left: 100.0)),
+                  buttonNav(context)
                 ]),
           ),
         ),
@@ -106,71 +134,70 @@ class CatagoryState extends State<CatagoryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
+            children: [
               Image.asset(
-                "assets/images/${mercendiseImg}",
+                'assets/images/${mercendiseImg.toString()}',
                 width: 250,
               ),
-              new Container(
+              Container(
                 padding: const EdgeInsets.all(16.0),
-                height: 300,
+                height: 270,
                 width: MediaQuery.of(context).size.width * 0.8,
-                child: new Column(
-                  children: <Widget>[
+                child: Column(
+                  children: [
                     Text(
-                      "$mercendiseName",
+                      mercendiseName.toString(),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontSize: 30.0),
+                      style: const TextStyle(color: Colors.black, fontSize: 30.0),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
-                    new Text(
-                      "$description",
+                    Text(
+                      description.toString(),
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Colors.black, fontSize: 15.0),
+                      style: const TextStyle(color: Colors.black, fontSize: 15.0),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                   ],
                 ),
               ),
-              Center(
-                child: Container(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        FloatingActionButton(
-                          backgroundColor: Colors.black,
-                          onPressed: () {
-                            DecreaseAmount();
-                          },
-                          child: Icon(Icons.remove),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "${amount}",
-                          style: TextStyle(color: Colors.black, fontSize: 30.0),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        FloatingActionButton(
-                          backgroundColor: Colors.black,
-                          onPressed: () {
-                            IncreaseAmount();
-                          },
-                          child: Icon(Icons.add),
-                        )
-                      ]),
-                ),
-              )
+              Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      FloatingActionButton(
+                        heroTag: "btn2",
+                        backgroundColor: Colors.black,
+                        onPressed: () {
+                          decreaseAmount();
+                        },
+                        child: const Icon(Icons.remove),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        amount.toString(),
+                        style:const TextStyle(color: Colors.black, fontSize: 30.0),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      FloatingActionButton(
+                        heroTag: "btn3",
+                        backgroundColor: Colors.black,
+                        onPressed: () {
+                          increaseAmount();
+                        },
+                        child:const Icon(Icons.add),
+                      )
+                    ]),
             ],
           ),
-        ));
+        )
+      );
   }
 }
