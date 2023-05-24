@@ -117,7 +117,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: TextFormField(
             decoration: const InputDecoration(hintText: 'Enter Username'),
-            onChanged: onUsernameFieldChanged,
+            onChanged: (value) {onUsernameFieldChanged(value);},
           ),
         ),
         const SizedBox(
@@ -134,7 +134,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: TextFormField(
             decoration: const InputDecoration(hintText: 'Enter Password'),
-            onChanged: onPasswordFieldChanged,
+            onChanged: (value) {onPasswordFieldChanged(value);},
           ),
         ),
         const SizedBox(
@@ -151,7 +151,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: TextFormField(
             decoration: const InputDecoration(hintText: 'Enter Email'),
-            onChanged: onEmailFieldChanged,
+            onChanged: (value) {onEmailFieldChanged(value);},
           ),
         ),
         const SizedBox(
