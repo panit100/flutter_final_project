@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:final_project/screens/aboutuspage.dart';
+import 'package:final_project/screens/favoritepage.dart';
 import 'package:final_project/screens/homepage.dart';
 import 'package:final_project/screens/orderpage.dart';
 import 'package:flutter/material.dart';
@@ -110,15 +111,18 @@ class ProfliePageState extends State<ProfliePage> {
         const SizedBox(
           height: 10,
         ),
-        // Center(
-        //     child: ProfileButton(
-        //   buttonIcon: Icons.favorite_border_outlined,
-        //   buttonTitle: 'Favourite',
-        //   onClick: () => {},
-        // )),
-        // const SizedBox(
-        //   height: 10,
-        // ),
+        Center(
+            child: ProfileButton(
+          buttonIcon: Icons.favorite_border_outlined,
+          buttonTitle: 'Favourite',
+          onClick: () => {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const FavoritePageRoute()))
+          },
+        )),
+        const SizedBox(
+          height: 10,
+        ),
         Center(
             child: ProfileButton(
           buttonIcon: Icons.info_outline,
