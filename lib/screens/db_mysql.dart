@@ -1,3 +1,5 @@
+import 'package:final_project/models/order_model/order_model.dart';
+import 'package:final_project/models/userOrder_model/userOrder_model.dart';
 import 'package:final_project/models/user_model/user_model.dart';
 import 'package:flutter/material.dart';
 import '../models/category_model/category_model.dart';
@@ -61,6 +63,7 @@ class _InputScreen extends State<InputScreen> {
   TextEditingController newpassword = TextEditingController();
   List<CategoryModel> categoriesList = [];
   List<ProductModel> productModelList = [];
+  List<UserOrdersModel> userOrderList = [];
   Future? serverResponse;
   Future? getUserDataResponse;
 
@@ -70,6 +73,7 @@ class _InputScreen extends State<InputScreen> {
       //Backend
       await this.getCategoryList();
       await this.getProductList();
+      await this.getUserOrderList();
 
       //Mockup
       // categoriesList.add(CategoryModel(
@@ -117,7 +121,7 @@ class _InputScreen extends State<InputScreen> {
           name: singleItem["name"],
           description: singleItem["description"],
           isFavourite: singleItem["isFavourite"],
-          price: singleItem["price"],
+          price: double.parse(singleItem["price"].toString()),
           qty: singleItem["qty"]);
 
       products.add(item);
@@ -142,6 +146,73 @@ class _InputScreen extends State<InputScreen> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(productModelList),
+    );
+  }
+
+  Future getUserOrderList() async {
+    final response = await http.get(Uri.parse("${_localhost()}/getUserOder"));
+
+    List<UserOrdersModel> userOders = [];
+
+    var usersJsonList = json.decode(response.body);
+
+    for (var singleItem in usersJsonList) {
+      List<OrderModel> orderList = [];
+
+      for (var order in singleItem["orders"]) {
+        orderList.add(OrderModel(
+            totalPrice: double.parse(order["totalPrice"].toString()),
+            orderId: order["orderId"],
+            payment: order["payment"],
+            product: ProductModel.fromJson(order["product"]),
+            status: order["status"],
+            qty: order["qty"]));
+      }
+
+      UserOrdersModel item =
+          UserOrdersModel(username: singleItem["username"], orders: orderList);
+
+      userOders.add(item);
+    }
+
+    userOrderList = userOders;
+  }
+
+  void updateOrderList() async {
+    var product = ProductModel(
+        image: "figure.png",
+        id: "figure2",
+        name: "figure2",
+        price: 300,
+        description: "WTF",
+        isFavourite: false);
+
+    var order = OrderModel(
+        totalPrice: 250,
+        orderId: "0",
+        payment: "d",
+        product: product,
+        status: "status",
+        qty: 1);
+
+    List<OrderModel> orders = [];
+    orders.add(order);
+    orders.add(order);
+
+    var userOrders = UserOrdersModel(username: username.text, orders: orders);
+    var userOrderstwo = UserOrdersModel(username: "kei", orders: orders);
+    List<UserOrdersModel> userOrderList = [];
+
+    userOrderList.add(userOrders);
+    userOrderList.add(userOrderstwo);
+    //test
+
+    final response = await http.post(
+      Uri.parse(_localhost() + "/updateUserOder"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(userOrderList),
     );
   }
 
@@ -350,6 +421,17 @@ class _InputScreen extends State<InputScreen> {
               updateProductList();
             }),
             child: Text("Update Product"),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: (() {
+              debugPrint("update order");
+              updateOrderList();
+            }),
+            child: Text("Update Order"),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
           ),
         ]),
