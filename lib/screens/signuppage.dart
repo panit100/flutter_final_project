@@ -164,10 +164,13 @@ class SignUpInputFieldState extends State<SignUpInputField> {
               ),
               onPressed: (() {
                 onButtonPress;
+                if(isPass)
+                {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const LoginRoute()));
+                }
               }),
               child: const SizedBox(
                 width: 200,
