@@ -79,7 +79,10 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
 
     void onButtonPress()
     {
-      setState(() {
+      setState(() async {
+
+        item = await showData();
+        
         if(username == '' || password == '')
         {
           isShow = true;
