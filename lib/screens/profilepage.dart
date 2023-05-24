@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:final_project/screens/aboutuspage.dart';
 import 'package:final_project/screens/favoritepage.dart';
 import 'package:final_project/screens/homepage.dart';
@@ -7,20 +6,12 @@ import 'package:final_project/screens/orderpage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ProfileRoute extends StatelessWidget {
-  const ProfileRoute({super.key});
+class ProfileRoute extends StatefulWidget {
+  final String currentUsername;
+  const ProfileRoute({super.key,required this.currentUsername});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: const Text('Profile')),body: const ProfliePage());
-  }
-}
-
-class ProfliePage extends StatefulWidget {
-  const ProfliePage({super.key});
-
-  @override
-  State<ProfliePage> createState() => ProfliePageState();
+  State<ProfileRoute> createState() => ProfliePageState();
 }
 
 // void switchImage() async {
@@ -32,7 +23,7 @@ class ProfliePage extends StatefulWidget {
 //   return Future(() => null)
 // }
 
-class ProfliePageState extends State<ProfliePage> {
+class ProfliePageState extends State<ProfileRoute> {
   String? _username;
   String? _email;
   File? _image;
@@ -56,8 +47,14 @@ class ProfliePageState extends State<ProfliePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+    appBar: AppBar(title: const Text('Profile')),
     body: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +102,7 @@ class ProfliePageState extends State<ProfliePage> {
           buttonTitle: 'Your Order',
           onClick: (() {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const OrderPageRoute()));
+                MaterialPageRoute(builder: (context) => OrderPageRoute(currentUsername: widget.currentUsername)));
           }),
         )),
         const SizedBox(
@@ -117,7 +114,7 @@ class ProfliePageState extends State<ProfliePage> {
           buttonTitle: 'Favourite',
           onClick: () => {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const FavoritePageRoute()))
+                MaterialPageRoute(builder: (context) => FavoritePageRoute(currentUsername: widget.currentUsername)))
           },
         )),
         const SizedBox(

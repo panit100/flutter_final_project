@@ -1,26 +1,15 @@
 import 'package:final_project/models/product_model/product_model.dart';
 import 'package:flutter/material.dart';
 
-class FavoritePageRoute extends StatelessWidget {
-  const FavoritePageRoute({super.key});
+class FavoritePageRoute extends StatefulWidget {
+  final String currentUsername;
+  const FavoritePageRoute({super.key,required this.currentUsername});
 
   @override
-  Widget build(BuildContext context) {
-    return const Scaffold
-    (
-      body: FavoritePagePage()
-    );
-  }
+  State<FavoritePageRoute> createState() => FavoritePagePageState();
 }
 
-class FavoritePagePage extends StatefulWidget {
-  const FavoritePagePage({super.key});
-
-  @override
-  State<FavoritePagePage> createState() => FavoritePagePageState();
-}
-
-class FavoritePagePageState extends State<FavoritePagePage> {
+class FavoritePagePageState extends State<FavoritePageRoute> {
   String username = '';
   List<ProductModel> userFavoriteList = [];
   List<ProductModel> favoritelist =[];

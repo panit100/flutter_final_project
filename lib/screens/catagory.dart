@@ -39,6 +39,7 @@ class CatagoryState extends State<CatagoryPage> {
   bool isFavourite = false;
   Color favouriteColor = Colors.grey;
   List<UserOrdersModel> userOrderList = [];
+  String username = '';
 
   Future getProductList() async {
     final response = await http.get(Uri.parse("${_localhost()}/getProduct"));
@@ -246,7 +247,7 @@ class CatagoryState extends State<CatagoryPage> {
                   TextButton(
                   onPressed: (() {
                     onPressBuy();
-                    Navigator.of(context).push(MaterialPageRoute(builder: ((context) => const OrderPageRoute())));
+                    Navigator.of(context).push(MaterialPageRoute(builder: ((context) => OrderPageRoute(currentUsername: widget.currentUsername))));
                   }),
                   style: TextButton.styleFrom(backgroundColor: Colors.black),
                   child: const Padding(

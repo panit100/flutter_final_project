@@ -105,15 +105,15 @@ class BuyShopPageState extends State<BuyShopRoute> {
     onTap: (x) {
       if(x == 0)
       {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => const ProfileRoute()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => ProfileRoute(currentUsername: widget.currentUsername)));
       }
       if(x == 1)
       {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => const FavoritePageRoute()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => FavoritePageRoute(currentUsername: widget.currentUsername)));
       }
       if(x == 2)
       {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => const OrderPageRoute()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => OrderPageRoute(currentUsername: widget.currentUsername)));
       }
     }));
   }

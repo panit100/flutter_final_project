@@ -1,38 +1,75 @@
 import 'package:final_project/models/order_model/order_model.dart';
 import 'package:final_project/models/product_model/product_model.dart';
+import 'package:final_project/models/userOrder_model/userOrder_model.dart';
 import 'package:flutter/material.dart';
-import 'package:final_project/screens/db_mysql.dart' as database;
+import 'widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'dart:convert';
 
-class OrderPageRoute extends StatelessWidget {
-  const OrderPageRoute({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold
-    (
-      body: BuyShopRoutePage()
-    );
-  }
+String _localhost() {
+  if (Platform.isAndroid)
+    return 'http://10.0.2.2:3000/';
+  else // for iOS simulator
+    return 'http://localhost:3000/';
 }
 
-class BuyShopRoutePage extends StatefulWidget {
-  const BuyShopRoutePage({super.key});
+class OrderPageRoute extends StatefulWidget {
+  final String currentUsername;
+  const OrderPageRoute({super.key,required this.currentUsername});
 
   @override
-  State<BuyShopRoutePage> createState() => BuyShopRoutePageState();
+  State<OrderPageRoute> createState() => OrderPageRouteState();
 }
 
-class BuyShopRoutePageState extends State<BuyShopRoutePage> {
+class OrderPageRouteState extends State<OrderPageRoute> {
   String username = '';
-  List<OrderModel> orderlist = [];
-  ProductModel product = ProductModel(
-          image: "Artbook.png", id: "artbook", name: "Liberate Official Artbook",price: 1000,description: 'off is suck',isFavourite: false);
+  List<UserOrdersModel> orderlist = [];
+  List<OrderModel> currentOrderList = [];
+  
+  Future getUserOrderList() async {
+    final response = await http.get(Uri.parse("${_localhost()}/getUserOder"));
+
+    List<UserOrdersModel> userOders = [];
+
+    var usersJsonList = json.decode(response.body);
+
+    for (var singleItem in usersJsonList) {
+      List<OrderModel> orderList = [];
+
+      for (var order in singleItem["orders"]) {
+        orderList.add(OrderModel(
+            totalPrice: double.parse(order["totalPrice"].toString()),
+            orderId: order["orderId"],
+            payment: order["payment"],
+            product: ProductModel.fromJson(order["product"]),
+            status: order["status"],
+            qty: order["qty"]));
+      }
+
+      UserOrdersModel item =
+          UserOrdersModel(username: singleItem["username"], orders: orderList);
+
+      userOders.add(item);
+    }
+
+    orderlist = userOders;
+  }
+
   @override
   void initState() {
-      orderlist.add(OrderModel(totalPrice: 1000, orderId: '001', payment: '1000', product: product, status: 'Wait for product',qty: 10));
-      setState(() {});
-      orderlist.add(OrderModel(totalPrice: 1000, orderId: '001', payment: '1000', product: product, status: 'Wait for product',qty: 99));
-      setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    await getUserOrderList();
+
+    username = widget.currentUsername;
+    for(UserOrdersModel currentUserOrderList in orderlist)
+    {
+      if(currentUserOrderList.username == username)
+      {
+        currentOrderList = currentUserOrderList.orders;
+      }
+    }
+    });
     super.initState();
   }
   @override
@@ -41,7 +78,7 @@ class BuyShopRoutePageState extends State<BuyShopRoutePage> {
       appBar: AppBar(title: const Text('Order'),),
       body: SingleChildScrollView(
         child: Column(
-          children: orderlist.map(
+          children: currentOrderList.map(
                   (e) =>  Padding(
                   padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
                   child: Container(

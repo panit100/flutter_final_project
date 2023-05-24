@@ -89,21 +89,21 @@ class _InputScreen extends State<InputScreen> {
   }
 }
 
-Widget buttonNav(BuildContext context) {
-  return TextButton(
-      onPressed: (() => Navigator.of(context).push(MaterialPageRoute(builder: ((context) => const OrderPageRoute())))),
-      child: Padding(
-        padding: EdgeInsets.all(2.0),
-        child: Text(
-          "Buy",
-          style: TextStyle(
-              fontSize: 15.0,
-              color: Colors.white,
-              backgroundColor: Colors.black),
-        )),
-    style: TextButton.styleFrom(backgroundColor: Colors.black),
-  );
-}
+// Widget buttonNav(BuildContext context) {
+//   return TextButton(
+//       onPressed: (() => Navigator.of(context).push(MaterialPageRoute(builder: ((context) => const OrderPageRoute())))),
+//       child: Padding(
+//         padding: EdgeInsets.all(2.0),
+//         child: Text(
+//           "Buy",
+//           style: TextStyle(
+//               fontSize: 15.0,
+//               color: Colors.white,
+//               backgroundColor: Colors.black),
+//         )),
+//     style: TextButton.styleFrom(backgroundColor: Colors.black),
+//   );
+// }
 
 // activity 2
 class DropdownButtonExample extends StatefulWidget {
