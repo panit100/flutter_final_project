@@ -33,11 +33,14 @@ class SignUpInputFieldState extends State<SignUpInputField> {
   String password = '';
   String email = '';
   bool isPass = false;
-  void onButtonPress() {
+  void onButtonPress(BuildContext context) {
     setState(() {
       if (username != '' && password != '' && email != '') {
         isPass = true;
         addData();
+        Navigator.push(context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginRoute()));
       }
     });
   }
@@ -170,13 +173,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
                 backgroundColor: MaterialStatePropertyAll<Color>(Colors.black),
               ),
               onPressed: (() {
-                onButtonPress();
-                if (isPass) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginRoute()));
-                }
+                onButtonPress(context);
               }),
               child: const SizedBox(
                 width: 200,
