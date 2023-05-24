@@ -28,4 +28,13 @@ class OrderModel {
         payment: json["payment"],
         qty: int.parse(json["qty"]));
   }
+
+  Map<String, dynamic> toJson() => {
+        "orderId": orderId,
+        "product": product,
+        "totalPrice": totalPrice,
+        "status": status,
+        "payment": payment,
+        "qty": qty
+      };
 }
