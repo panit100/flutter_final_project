@@ -1,5 +1,9 @@
 import 'package:final_project/screens/login.dart';
 import 'package:flutter/material.dart';
+import 'widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'dart:convert';
 
 class SignUpRoute extends StatelessWidget {
   const SignUpRoute({super.key});
@@ -17,13 +21,58 @@ class SignUpInputField extends StatefulWidget {
   State<SignUpInputField> createState() => SignUpInputFieldState();
 }
 
+String _localhost() {
+  return 'http://localhost:3000';
+}
+
 class SignUpInputFieldState extends State<SignUpInputField> {
-  bool isShow = false;
+  String username = '';
+  String password = '';
+  String email = '';
+  bool isPass = false;
   void onButtonPress() {
     setState(() {
-      isShow = !isShow;
+        if(username != '' || password != '' || email != '')
+        {
+          isPass = true;
+          addData();
+        }
     });
   }
+
+  void addData() async {
+    final response = await http.post(
+      Uri.parse(_localhost() + "/addDB"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': username,
+        'email': email,
+        'password': password,
+        'image': "default.png"
+      }),
+    );
+  }
+
+  void onPasswordFieldChanged(String value)
+    {
+      setState(() {
+        password = value;
+      });
+    }
+    void onUsernameFieldChanged(String value)
+    {
+      setState(() {
+        username = value;
+      });
+    }
+    void onEmailFieldChanged(String value)
+    {
+      setState(() {
+        email = value;
+      });
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +117,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: TextFormField(
             decoration: const InputDecoration(hintText: 'Enter Username'),
+            onChanged: onUsernameFieldChanged,
           ),
         ),
         const SizedBox(
@@ -84,6 +134,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: TextFormField(
             decoration: const InputDecoration(hintText: 'Enter Password'),
+            onChanged: onPasswordFieldChanged,
           ),
         ),
         const SizedBox(
@@ -100,6 +151,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
           padding: const EdgeInsets.only(left: 30, right: 30),
           child: TextFormField(
             decoration: const InputDecoration(hintText: 'Enter Email'),
+            onChanged: onEmailFieldChanged,
           ),
         ),
         const SizedBox(
@@ -110,13 +162,13 @@ class SignUpInputFieldState extends State<SignUpInputField> {
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll<Color>(Colors.black),
               ),
-              onPressed: onButtonPress,
-              // onPressed: (() {
-              //   Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => const LoginRoute()));
-              // }),
+              onPressed: (() {
+                onButtonPress;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginRoute()));
+              }),
               child: const SizedBox(
                 width: 200,
                 child: Text(
