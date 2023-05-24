@@ -1,5 +1,8 @@
+import 'package:final_project/models/order_model/order_model.dart';
 import 'package:final_project/models/product_model/product_model.dart';
+import 'package:final_project/models/userOrder_model/userOrder_model.dart';
 import 'package:final_project/models/user_model/user_model.dart';
+import 'package:final_project/screens/orderpage.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/widgets/inputscreen.dart';
 import 'widgets.dart';
@@ -8,16 +11,20 @@ import 'dart:io';
 import 'dart:convert';
 
 class CatagoryPage extends StatefulWidget {
+  final String currentUsername;
   final String itemID;
   final String userID;
-  const CatagoryPage({super.key,required this.itemID,required this.userID});
+  const CatagoryPage({super.key,required this.itemID,required this.userID,required this.currentUsername});
 
   @override
   State<CatagoryPage> createState() => CatagoryState();
 }
 
 String _localhost() {
-  return 'http://localhost:3000';
+  if (Platform.isAndroid)
+    return 'http://10.0.2.2:3000/';
+  else // for iOS simulator
+    return 'http://localhost:3000/';
 }
 
 class CatagoryState extends State<CatagoryPage> {
@@ -31,6 +38,7 @@ class CatagoryState extends State<CatagoryPage> {
   double totalPrice = 0;
   bool isFavourite = false;
   Color favouriteColor = Colors.grey;
+  List<UserOrdersModel> userOrderList = [];
 
   Future getProductList() async {
     final response = await http.get(Uri.parse("${_localhost()}/getProduct"));
@@ -80,6 +88,45 @@ class CatagoryState extends State<CatagoryPage> {
     }
 
     return userData;
+  }
+
+    void updateOrderList() async {
+    final response = await http.post(
+      Uri.parse(_localhost() + "/updateUserOder"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(userOrderList),
+    );
+    }
+
+    Future getUserOrderList() async {
+    final response = await http.get(Uri.parse("${_localhost()}/getUserOder"));
+
+    List<UserOrdersModel> userOders = [];
+
+    var usersJsonList = json.decode(response.body);
+
+    for (var singleItem in usersJsonList) {
+      List<OrderModel> orderList = [];
+
+      for (var order in singleItem["orders"]) {
+        orderList.add(OrderModel(
+            totalPrice: double.parse(order["totalPrice"].toString()),
+            orderId: order["orderId"],
+            payment: order["payment"],
+            product: ProductModel.fromJson(order["product"]),
+            status: order["status"],
+            qty: order["qty"]));
+      }
+
+      UserOrdersModel item =
+          UserOrdersModel(username: singleItem["username"], orders: orderList);
+
+      userOders.add(item);
+    }
+
+    userOrderList = userOders;
   }
 
   @override
@@ -145,6 +192,14 @@ class CatagoryState extends State<CatagoryPage> {
     });
   }
 
+  void onPressBuy()
+  {
+    List<OrderModel> currentOrder = [];
+    currentOrder.add(OrderModel(totalPrice: totalPrice, orderId: '0', payment: 'payment', product: ProductModel(image: mercendiseImg, id: widget.itemID, name: mercendiseName, price: price, description: description, isFavourite: isFavourite), status: 'Wait for product', qty: amount));
+    userOrderList.add(UserOrdersModel(username: widget.currentUsername, orders: currentOrder));
+    updateOrderList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,7 +243,20 @@ class CatagoryState extends State<CatagoryPage> {
                     ),
                   ]),
                   const Padding(padding: EdgeInsets.only(left: 100.0)),
-                  buttonNav(context)
+                  TextButton(
+                  onPressed: (() {
+                    onPressBuy();
+                    Navigator.of(context).push(MaterialPageRoute(builder: ((context) => const OrderPageRoute())));
+                  }),
+                  style: TextButton.styleFrom(backgroundColor: Colors.black),
+                  child: const Padding(
+                  padding: EdgeInsets.all(2.0),
+                  child: Text("Buy",
+                  style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                  backgroundColor: Colors.black),
+                  )),)
                 ]),
           ),
         ),

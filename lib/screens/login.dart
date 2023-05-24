@@ -19,7 +19,10 @@ class LoginRoute extends StatelessWidget {
 }
 
 String _localhost() {
-  return 'http://localhost:3000';
+  if (Platform.isAndroid)
+    return 'http://10.0.2.2:3000/';
+  else // for iOS simulator
+    return 'http://localhost:3000/';
 }
 
 class LoginPageHeader extends StatefulWidget {

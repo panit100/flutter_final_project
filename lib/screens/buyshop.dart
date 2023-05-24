@@ -19,7 +19,10 @@ class BuyShopRoute extends StatefulWidget {
 }
 
 String _localhost() {
-  return 'http://localhost:3000';
+  if (Platform.isAndroid)
+    return 'http://10.0.2.2:3000/';
+  else // for iOS simulator
+    return 'http://localhost:3000/';
 }
 
 class BuyShopPageState extends State<BuyShopRoute> {
@@ -84,7 +87,7 @@ class BuyShopPageState extends State<BuyShopRoute> {
                   padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
                   child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => CatagoryPage(itemID: e.id,userID: username)));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => CatagoryPage(itemID: e.id,userID: username,currentUsername: 'kuy',)));
                   },
                   child: SizedBox(height: 120,width: 120,child: Image.asset("assets/images/${e.image.toString()}"))),
                 )
