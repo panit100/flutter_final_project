@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "profilePage",
+            "program": "lib/screens/profliepage.dart",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
             "name": "flutter_final_project",
             "request": "launch",
             "type": "dart"

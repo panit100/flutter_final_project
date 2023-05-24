@@ -5,24 +5,27 @@ class OrderModel {
     required this.totalPrice,
     required this.orderId,
     required this.payment,
-    required this.products,
+    required this.product,
     required this.status,
+    required this.qty,
   });
 
   String payment;
   String status;
 
-  List<ProductModel> products;
+  ProductModel product;
   double totalPrice;
   String orderId;
+  int qty;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
-    List<dynamic> productMap = json["products"];
+    // List<dynamic> productMap = json["products"];
     return OrderModel(
         orderId: json["orderId"],
-        products: productMap.map((e) => ProductModel.fromJson(e)).toList(),
+        product: ProductModel.fromJson(json["product"]),
         totalPrice: json["totalPrice"],
         status: json["status"],
-        payment: json["payment"]);
+        payment: json["payment"],
+        qty: int.parse(json["qty"]));
   }
 }

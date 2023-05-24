@@ -1,3 +1,5 @@
+import 'package:final_project/screens/login.dart';
+import 'package:final_project/screens/signuppage.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatelessWidget {
@@ -5,12 +7,67 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [Text("Homepage")],
-        ),
+    return const Scaffold
+    (
+      body: HomePageButton()
+    );
+  }
+}
+
+class HomePageButton extends StatefulWidget {
+  const HomePageButton({super.key});
+
+  @override
+  State<HomePageButton> createState() => HomePageButtonState();
+}
+
+class HomePageButtonState extends State<HomePageButton> {
+  @override
+  Widget build(BuildContext context) {
+    final ButtonStyle style =
+        ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
+
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          const SizedBox(
+            child: Center(
+              child:Text('Liberate Goods Shop'
+              ,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold)
+              )
+            )
+          ),
+          const SizedBox(
+            height: 250,
+          ),
+          ElevatedButton(
+            style: style,
+            onPressed:(() {Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginRoute()));
+            }),
+            child: const SizedBox(
+                width: 250,
+                child: Center(
+                  child: Text('Login')
+                ),
+            ),
+          ),
+          const SizedBox(height: 20,
+          ),
+          ElevatedButton(
+            style: style,
+            onPressed: (() {Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const SignUpRoute()));
+            }),
+            child: const SizedBox(
+                width: 250,
+                child: Center(
+                  child: Text('Sign Up')
+                ),
+            ),
+          ),
+        ],
       ),
     );
   }

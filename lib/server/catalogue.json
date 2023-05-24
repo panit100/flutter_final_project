@@ -1,23 +1,39 @@
-{
-    "figure":
+[
     {
-        "id": "figure",
-        "name":"main figure",
-        "description":"figure of main character",
-        "image":"figure.png",
-        "isFavourite": false,
-        "qty":20,
-        "price":200.25
+        "id": "artbook",
+        "name":"Artbook Liberate",
+        "image":"Artbook.png"
     },
-    "keychain":
     {
-        "id": "keychain",
-        "name":"main keychain",
-        "description":"key chain of main character",
-        "image":"keychain.png",
-        "isFavourite": false,
-        "qty":20,
-        "price":200.25
+        "id": "keychain1",
+        "name":"Keychain 1",
+        "image":"Key1.png"
+    },
+    {
+        "id": "keychain2",
+        "name":"Keychain 2",
+        "image":"Key2.png"
+    },
+    {
+        "id": "keychain3",
+        "name":"Keychain 3",
+        "image":"Key3.png"
+    },
+    {
+        "id": "keychain4",
+        "name":"Keychain 4",
+        "image":"Key4.png"
+    },
+    {
+        "id": "manga",
+        "name":"Manga",
+        "image":"Manga.png"
+    },
+    {
+        "id": "standee",
+        "name":"Standee",
+        "image":"Standee.png"
     }
-}
+]
+   
 
