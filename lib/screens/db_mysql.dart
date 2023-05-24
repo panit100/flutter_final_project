@@ -303,6 +303,8 @@ class _InputScreen extends State<InputScreen> {
         email: responseData["0"]["email"],
         favouriteIds: responseData["0"]["favIds"]);
 
+    String password = responseData["0"]["password"];
+
     if (userData.favouriteIds != null) {
       String favIds = userData.favouriteIds.toString();
       FavIdList = favIds.split(',');
