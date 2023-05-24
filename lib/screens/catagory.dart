@@ -1,4 +1,5 @@
 import 'package:final_project/models/product_model/product_model.dart';
+import 'package:final_project/models/user_model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/widgets/inputscreen.dart';
 import 'widgets.dart';
@@ -8,7 +9,8 @@ import 'dart:convert';
 
 class CatagoryPage extends StatefulWidget {
   final String itemID;
-  const CatagoryPage({super.key,required this.itemID});
+  final String userID;
+  const CatagoryPage({super.key,required this.itemID,required this.userID});
 
   @override
   State<CatagoryPage> createState() => CatagoryState();
@@ -20,6 +22,7 @@ String _localhost() {
 
 class CatagoryState extends State<CatagoryPage> {
   List<ProductModel> productList = [];
+  List<String> favIdList = [];
   String mercendiseImg = '';
   String mercendiseName = '';
   String description = '';
@@ -52,9 +55,41 @@ class CatagoryState extends State<CatagoryPage> {
     productList = products;
   }
 
+  Future<UserModel> getUserData() async {
+    final response = await http.post(
+      Uri.parse(_localhost() + "/getUser"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': widget.userID,
+      }),
+    );
+
+    var responseData = json.decode(response.body);
+    //Creating a list to store input data;
+    UserModel userData = UserModel(
+        id: responseData["0"]["id"].toString(),
+        name: responseData["0"]["username"],
+        email: responseData["0"]["email"],
+        favouriteIds: responseData["0"]["favIds"]);
+
+    if (userData.favouriteIds != null) {
+      String favIds = userData.favouriteIds.toString();
+      favIdList = favIds.split(',');
+    }
+
+    return userData;
+  }
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+
+      await this.getProductList();
+
+      await this.getUserData();
+
       productList.map((e) => {
         if(e.id == widget.itemID)
         {
@@ -64,7 +99,8 @@ class CatagoryState extends State<CatagoryPage> {
           price = e.price,
           amount = 1,
           totalPrice = price * amount,
-          isFavourite = e.isFavourite,
+          isFavourite = favIdList.contains(e.id),
+
           if (isFavourite == false)
           {
           favouriteColor = Colors.grey

@@ -1,6 +1,10 @@
 import 'package:final_project/screens/signuppage.dart';
 import 'package:final_project/screens/buyshop.dart';
 import 'package:flutter/material.dart';
+import 'widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'dart:convert';
 
 class LoginRoute extends StatelessWidget {
   const LoginRoute({super.key});
@@ -14,6 +18,10 @@ class LoginRoute extends StatelessWidget {
   }
 }
 
+String _localhost() {
+  return 'http://localhost:3000';
+}
+
 class LoginPageHeader extends StatefulWidget {
   const LoginPageHeader({super.key});
 
@@ -21,15 +29,73 @@ class LoginPageHeader extends StatefulWidget {
   State<LoginPageHeader> createState() => LoginPageHeaderState();
 }
 
+class Item {
+  final int? id;
+  final String? username;
+  final String? password;
+
+  Item({
+    this.id,
+    this.username,
+    this.password,
+  });
+}
+
 class LoginPageHeaderState extends State<LoginPageHeader> {
-    bool isShow = false;
-    String username = '';
-    String password = '';
-    String errorText = '';
+  bool isShow = false;
+  String username = '';
+  String password = '';
+  String errorText = '';
+  bool isPass = false;
+  List<Item> item = [];
+
+  Future<List<Item>> showData() async {
+  final response = await http.get(Uri.parse(_localhost() + "/showDB"));
+
+  var responseData = json.decode(response.body);
+  //Creating a list to store input data;
+  List<Item> items = [];
+  responseData.forEach((index, value) {
+    Item item = Item(
+      id: value["id"],
+      username: value["username"],
+      password: value["password"]);
+    items.add(item);
+  });
+
+  return items;
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      
+      item = await showData();
+
+      setState(() {});
+    });
+    super.initState();
+  }
+
     void onButtonPress()
     {
       setState(() {
-        isShow = !isShow;
+        if(username == '' || password == '')
+        {
+          isShow = true;
+          errorText = 'Please Enter Email or Password';
+        }
+
+        item.map((e) => {        
+          if(e.username == username)
+          {
+            if(e.password == password)
+            {
+              isPass = true
+            }
+          }
+        }
+        ).toList();
       });
     }
     void onPasswordFieldChanged(String value)
@@ -124,7 +190,10 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
               ),
               onPressed: (() {
                 onButtonPress();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const BuyShopRoute()));  
+                if(isPass)
+                  {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => BuyShopRoute(currentUsername: username)));  
+                  }
                 }
               ),
               child: const SizedBox(

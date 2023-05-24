@@ -10,30 +10,19 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
 
-class BuyShopRoute extends StatelessWidget {
-  const BuyShopRoute({super.key});
+class BuyShopRoute extends StatefulWidget {
+  final String currentUsername;
+  const BuyShopRoute({super.key,required this.currentUsername});
 
   @override
-  Widget build(BuildContext context) {
-    return const Scaffold
-    (
-      body: BuyShopPage()
-    );
-  }
-}
-
-class BuyShopPage extends StatefulWidget {
-  const BuyShopPage({super.key});
-
-  @override
-  State<BuyShopPage> createState() => BuyShopPageState();
+  State<BuyShopRoute> createState() => BuyShopPageState();
 }
 
 String _localhost() {
   return 'http://localhost:3000';
 }
 
-class BuyShopPageState extends State<BuyShopPage> {
+class BuyShopPageState extends State<BuyShopRoute> {
   String username = '';
   List<CategoryModel> categoryList = [];
 
@@ -60,7 +49,9 @@ class BuyShopPageState extends State<BuyShopPage> {
   @override
   void initState() {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
+      username = widget.currentUsername;
       await this.getCategoryList();
+
       setState(() {});
     });
     super.initState();
@@ -93,7 +84,7 @@ class BuyShopPageState extends State<BuyShopPage> {
                   padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
                   child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => CatagoryPage(itemID: e.id,)));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => CatagoryPage(itemID: e.id,userID: username)));
                   },
                   child: SizedBox(height: 120,width: 120,child: Image.asset("assets/images/${e.image.toString()}"))),
                 )
