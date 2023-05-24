@@ -64,6 +64,7 @@ class _InputScreen extends State<InputScreen> {
   List<CategoryModel> categoriesList = [];
   List<ProductModel> productModelList = [];
   List<UserOrdersModel> userOrderList = [];
+  List<String> FavIdList = [];
   Future? serverResponse;
   Future? getUserDataResponse;
 
@@ -235,6 +236,25 @@ class _InputScreen extends State<InputScreen> {
     );
   }
 
+  void updateFavIds() async {
+    //test
+    FavIdList.add("figure1");
+    FavIdList.add("figure2");
+
+    final response = await http.post(
+      Uri.parse(_localhost() + "/updateFavIds"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': username.text,
+        'favIds': FavIdList.join(',')
+      }),
+    );
+
+    debugPrint(FavIdList.join(','));
+  }
+
   void deleteData() async {
     final response = await http.post(
       Uri.parse(_localhost() + "/deleteDB"),
@@ -282,6 +302,12 @@ class _InputScreen extends State<InputScreen> {
         name: responseData["0"]["username"],
         email: responseData["0"]["email"],
         favouriteIds: responseData["0"]["favIds"]);
+
+    if (userData.favouriteIds != null) {
+      String favIds = userData.favouriteIds.toString();
+      FavIdList = favIds.split(',');
+    }
+
     return userData;
   }
 
@@ -423,6 +449,17 @@ class _InputScreen extends State<InputScreen> {
               updateOrderList();
             }),
             child: Text("Update Order"),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: (() {
+              debugPrint("update FavIds");
+              updateFavIds();
+            }),
+            child: Text("Update FavIds"),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
           ),
         ]),
