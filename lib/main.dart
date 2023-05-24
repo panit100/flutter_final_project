@@ -1,3 +1,5 @@
+// import 'package:final_project/models/order_model/order_model.dart';
+import 'package:final_project/screens/catagory.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/screens/homepage.dart';
 
@@ -25,7 +27,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const Homepage(),
+      // home: const Homepage(),
+      home: const CatagoryPage(),
     );
   }
 }
