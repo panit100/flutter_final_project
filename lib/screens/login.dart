@@ -77,24 +77,20 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
     super.initState();
   }
 
-    void onButtonPress()
+    void onButtonPress(BuildContext context)
     {
-      setState(() async {
-
-        item = await showData();
-        
+      setState(() {
         if(username == '' || password == '')
         {
           isShow = true;
           errorText = 'Please Enter Email or Password';
         }
-
         item.map((e) => {        
           if(e.username == username)
           {
             if(e.password == password)
             {
-              isPass = true
+              NavagatorTo(context)
             }
           }
         }
@@ -112,6 +108,10 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
       setState(() {
         username = value;
       });
+    }
+    void NavagatorTo(BuildContext context)
+    {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => BuyShopRoute(currentUsername: username)));
     }
   @override
   Widget build(BuildContext context) {
@@ -192,13 +192,8 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
                 )
               ),
               onPressed: (() {
-                onButtonPress();
-                if(isPass)
-                  {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => BuyShopRoute(currentUsername: username)));  
-                  }
-                }
-              ),
+                onButtonPress(context);
+              }),
               child: const SizedBox(
                 width: 200,
                 child: Text('Login',
