@@ -61,7 +61,7 @@ class FavoritePagePageState extends State<FavoritePagePage> {
                     child: ElevatedButton(
                       style: const ButtonStyle(backgroundColor:MaterialStatePropertyAll<Color>(Color.fromARGB(141, 172, 172, 172))),
                       onPressed: () {
-                        
+
                       }, 
                       child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
