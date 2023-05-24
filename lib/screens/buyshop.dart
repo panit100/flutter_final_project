@@ -5,6 +5,10 @@ import 'package:final_project/screens/favoritepage.dart';
 import 'package:final_project/screens/orderpage.dart';
 import 'package:final_project/screens/profilepage.dart';
 import 'package:flutter/material.dart';
+import 'widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'dart:convert';
 
 class BuyShopRoute extends StatelessWidget {
   const BuyShopRoute({super.key});
@@ -25,31 +29,38 @@ class BuyShopPage extends StatefulWidget {
   State<BuyShopPage> createState() => BuyShopPageState();
 }
 
+String _localhost() {
+  return 'http://localhost:3000';
+}
+
 class BuyShopPageState extends State<BuyShopPage> {
   String username = '';
   List<CategoryModel> categoryList = [];
+
+  Future getCategoryList() async {
+    final response = await http.get(Uri.parse("${_localhost()}/getCatalogue"));
+
+    List<CategoryModel> categories = [];
+
+    var usersJsonList = json.decode(response.body);
+
+    for (var singleItem in usersJsonList) {
+      CategoryModel item = CategoryModel(
+        image: singleItem["image"],
+        id: singleItem["id"],
+        name: singleItem["name"],
+      );
+
+      categories.add(item);
+    }
+
+    categoryList = categories;
+  }
+
   @override
   void initState() {
-       WidgetsBinding.instance.addPostFrameCallback((_) async {
-      //Backend
-      // await this.getCategoryList();
-
-      //Mockup
-      categoryList.add(CategoryModel(
-          image: "Artbook.png", id: "artbook", name: "main figure"));
-      categoryList.add(CategoryModel(
-          image: "Key1.png", id: "keychain1", name: "main figure"));
-      categoryList.add(CategoryModel(
-          image: "Key2.png", id: "keychain2", name: "main figure"));
-      categoryList.add(CategoryModel(
-          image: "Key3.png", id: "keychain3", name: "main figure"));
-      categoryList.add(CategoryModel(
-          image: "Key4.png", id: "keychain4", name: "main figure"));
-      categoryList.add(CategoryModel(
-          image: "Manga.png", id: "manga", name: "main figure"));
-      categoryList.add(CategoryModel(
-          image: "Standee.png", id: "standee", name: "main figure"));
-      username = 'Tew';
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+      this.getCategoryList();
       setState(() {});
     });
     super.initState();

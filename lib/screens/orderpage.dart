@@ -1,6 +1,7 @@
 import 'package:final_project/models/order_model/order_model.dart';
 import 'package:final_project/models/product_model/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:final_project/screens/db_mysql.dart' as database;
 
 class OrderPageRoute extends StatelessWidget {
   const OrderPageRoute({super.key});
@@ -45,29 +46,29 @@ class BuyShopRoutePageState extends State<BuyShopRoutePage> {
                   padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
                   child: Container(
                     color:const Color.fromARGB(141, 172, 172, 172),
-                    width: 400,
+                    width: 390,
                     height: 150,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                       children: [
-                        Image.asset("assets/images/${e.product.image.toString()}",width: 150,height: 150,),
+                        Image.asset("assets/images/${e.product.image.toString()}",width: 100,height: 100,),
                         Column(mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(padding: const EdgeInsets.only(left: 20,bottom: 10,top: 10),
-                          child: Text('Order Name: ${e.product.name.toString()}',style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold))),
+                          child: Text('Order Name: ${e.product.name.toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold))),
                           Padding(padding: const EdgeInsets.only(left: 20,bottom: 10),
-                          child: Text('Price: ${e.product.price.toString()}',style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold))),
+                          child: Text('Price: ${e.product.price.toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold))),
                           Padding(padding: const EdgeInsets.only(left: 20,bottom: 10),
-                          child: Text('Total Price: ${(e.product.price * e.qty).toString()}',style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold))),
+                          child: Text('Total Price: ${(e.product.price * e.qty).toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold))),
                           Padding(padding: const EdgeInsets.only(left: 20,bottom: 10),
-                          child: Text('Status: ${e.status.toString()}',style: const TextStyle(fontSize: 15,fontWeight: FontWeight.bold)))
+                          child: Text('Status: ${e.status.toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold)))
                           ]
                         ),
                         Padding(padding: const EdgeInsets.only(left: 10),
-                          child: Text('X ${e.qty.toString()}',style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold)))
+                          child: Text('X ${e.qty.toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold)))
                       ],
                      )
                     )
