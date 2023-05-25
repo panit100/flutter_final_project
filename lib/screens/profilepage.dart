@@ -28,9 +28,10 @@ class ProfileRoute extends StatefulWidget {
 // }
 
 class ProfliePageState extends State<ProfileRoute> {
-  String? _username;
-  String? _email;
+  String _username = '';
+  String _email = '';
   File? _image;
+  UserModel? currentUserData; 
 
   String _localhost() {
   return 'http://localhost:3000';
@@ -54,7 +55,7 @@ class ProfliePageState extends State<ProfileRoute> {
         name: responseData["0"]["username"],
         email: responseData["0"]["email"],
         favouriteIds: responseData["0"]["favIds"]);
-
+    
     return userData;
   }
 
@@ -77,13 +78,14 @@ class ProfliePageState extends State<ProfileRoute> {
   }
 
   @override
-  void initState() async {
-    UserModel userData = await getUserData();
-
-    _username = userData.name;
-    _email = userData.email;
-
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    currentUserData = await getUserData();
+    
+    _username = currentUserData!.name;
+    _email = currentUserData!.email;
     setState(() {
+    });
     });
     super.initState();
   }
