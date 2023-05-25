@@ -2,6 +2,8 @@ import 'package:final_project/models/product_model/product_model.dart';
 import 'package:final_project/models/user_model/user_model.dart';
 import 'package:final_project/screens/catagory.dart';
 import 'package:flutter/material.dart';
+import 'package:final_project/screens/profilepage.dart';
+import 'package:final_project/screens/orderpage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
@@ -96,6 +98,28 @@ class FavoritePagePageState extends State<FavoritePageRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: 'profile'),
+              BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Order')
+            ],
+            onTap: (x) {
+              if (x == 0) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileRoute(
+                            currentUsername: widget.currentUsername)));
+              }
+              if (x == 1) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OrderPageRoute(
+                            currentUsername: widget.currentUsername)));
+              }
+            }),
       appBar: AppBar(title: const Text('Favorite'),),
       body: SingleChildScrollView(
         child: Column(

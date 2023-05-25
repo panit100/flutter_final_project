@@ -163,7 +163,7 @@ class CatagoryState extends State<CatagoryPage> {
     }
 
     updateFavIds();
-    Navigator.pop(context);
+    Navigator.push(context,MaterialPageRoute(builder: (context) => BuyShopRoute(currentUsername: widget.currentUsername)));
   }
 
   @override

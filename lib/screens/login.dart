@@ -74,7 +74,7 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      //item = await showData();
+      item = await showData();
 
       setState(() {});
     });
@@ -86,7 +86,7 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
 
     if (username == '' || password == '') {
       isShow = true;
-      errorText = 'Please Enter Email or Password';
+      errorText = 'Please Enter Username or Password';
     }
 
     for (Item currentItem in item) {
@@ -94,6 +94,16 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
         if (currentItem.password == password) {
           navagatorTo(context);
         }
+        else
+        {
+        isShow = true;
+        errorText = 'Password is wrong';
+      }
+      }
+      else
+      {
+        isShow = true;
+        errorText = 'this Username does not exist';
       }
     }
 
@@ -164,7 +174,7 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
             onChanged: (value) {
               onUsernameFieldChanged(value);
             },
-            decoration: const InputDecoration(hintText: 'Enter Email'),
+            decoration: const InputDecoration(hintText: 'Enter Username'),
           ),
         ),
         const SizedBox(

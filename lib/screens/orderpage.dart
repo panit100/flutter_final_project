@@ -1,6 +1,8 @@
 import 'package:final_project/models/order_model/order_model.dart';
 import 'package:final_project/models/product_model/product_model.dart';
 import 'package:final_project/models/userOrder_model/userOrder_model.dart';
+import 'package:final_project/screens/profilepage.dart';
+import 'package:final_project/screens/favoritepage.dart';
 import 'package:flutter/material.dart';
 import 'widgets.dart';
 import 'package:http/http.dart' as http;
@@ -79,6 +81,33 @@ class OrderPageRouteState extends State<OrderPageRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: 'profile'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                  label: 'Favorite')
+            ],
+            onTap: (x) {
+              if (x == 0) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileRoute(
+                            currentUsername: widget.currentUsername)));
+              }
+              if (x == 1) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoritePageRoute(
+                            currentUsername: widget.currentUsername)));
+              }
+            }),
       appBar: AppBar(
         title: const Text('Order'),
       ),

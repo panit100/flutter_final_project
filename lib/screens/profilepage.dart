@@ -55,9 +55,6 @@ class ProfliePageState extends State<ProfileRoute> {
         email: responseData["0"]["email"],
         favouriteIds: responseData["0"]["favIds"]);
 
-    _username = userData.name;
-    _email = userData.email;
-
     return userData;
   }
 
@@ -80,8 +77,12 @@ class ProfliePageState extends State<ProfileRoute> {
   }
 
   @override
-  void initState() {
-    getUserData();
+  void initState() async {
+    UserModel userData = await getUserData();
+
+    _username = userData.name;
+    _email = userData.email;
+
     setState(() {
     });
     super.initState();
