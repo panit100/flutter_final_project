@@ -105,7 +105,6 @@ class BuyShopPageState extends State<BuyShopRoute> {
                                               builder: (context) =>
                                                   CatagoryPage(
                                                     itemID: e.id,
-                                                    userID: username,
                                                     currentUsername: username,
                                                   )));
                                     },

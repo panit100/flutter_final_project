@@ -15,11 +15,9 @@ import 'dart:convert';
 class CatagoryPage extends StatefulWidget {
   final String currentUsername;
   final String itemID;
-  final String userID;
   const CatagoryPage(
       {super.key,
       required this.itemID,
-      required this.userID,
       required this.currentUsername});
 
   @override
@@ -81,7 +79,7 @@ class CatagoryState extends State<CatagoryPage> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'username': widget.userID,
+        'username': widget.currentUsername,
       }),
     );
 
@@ -140,33 +138,56 @@ class CatagoryState extends State<CatagoryPage> {
     userOrderList = userOders;
   }
 
+  void updateFavIds() async {
+    final response = await http.post(
+      Uri.parse(_localhost() + "/updateFavIds"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': widget.currentUsername,
+        'favIds': favIdList.join(',')
+      }),
+    );
+    debugPrint(favIdList.join(','));
+  }
+
+  void onWillPop(){
+    if (isFavourite == false){
+      if(favIdList.contains(widget.itemID)){
+        favIdList.remove(widget.itemID);
+      }
+    }
+    else{
+      favIdList.add(widget.itemID);
+    }
+    updateFavIds();
+  }
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await this.getProductList();
-      await this.getUserOrderList();
-      await this.getUserData();
+      await getProductList();
+      await getUserOrderList();
+      await getUserData();
 
-      productList
-          .map((e) => {
-                if (e.id == widget.itemID)
-                  {
-                    mercendiseImg = e.image,
-                    mercendiseName = e.name,
-                    description = e.description,
-                    price = e.price,
-                    amount = 1,
-                    totalPrice = price * amount,
-                    isFavourite = favIdList.contains(e.id),
-                    if (isFavourite == false)
-                      {favouriteColor = Colors.grey}
-                    else
-                      {
-                        favouriteColor = Colors.amber,
-                      }
-                  },
-              })
-          .toList();
+      for(ProductModel currentProduct in productList){
+        if (currentProduct.id == widget.itemID){
+        mercendiseImg = currentProduct.image;
+        mercendiseName = currentProduct.name;
+        description = currentProduct.description;
+        price = currentProduct.price;
+        amount = 1;
+        totalPrice = price * amount;
+        isFavourite = favIdList.contains(currentProduct.id);
+        if (isFavourite == false){
+        favouriteColor = Colors.grey;
+        }
+        else{
+        favouriteColor = Colors.amber;
+        }
+        }
+      }
       setState(() {});
     });
     super.initState();
@@ -239,13 +260,18 @@ class CatagoryState extends State<CatagoryPage> {
       userOrderList.add(UserOrdersModel(
           username: widget.currentUsername, orders: currentOrder));
     }
-
+    
+    onWillPop();
     updateOrderList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope( onWillPop: () async {
+      onWillPop();
+      return false;
+    },
+    child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 232, 232, 232),
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.black),
@@ -379,6 +405,8 @@ class CatagoryState extends State<CatagoryPage> {
                   ]),
             ],
           ),
-        ));
+        )
+      )
+    );
   }
 }

@@ -11,7 +11,7 @@ class LoginRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: LoginPageHeader());
+    return const Scaffold(body: SingleChildScrollView(child: LoginPageHeader()));
   }
 }
 
@@ -73,7 +73,7 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      item = await showData();
+      //item = await showData();
 
       setState(() {});
     });
@@ -86,14 +86,15 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
         isShow = true;
         errorText = 'Please Enter Email or Password';
       }
-      item
-          .map((e) => {
-                if (e.username == username)
-                  {
-                    if (e.password == password) {NavagatorTo(context)}
-                  }
-              })
-          .toList();
+
+      for(Item currentItem in item)
+      {
+        if (currentItem.username == username){
+          if (currentItem.password == password) {
+            navagatorTo(context);
+          }
+        }
+      }
     });
   }
 
@@ -109,7 +110,7 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
     });
   }
 
-  void NavagatorTo(BuildContext context) {
+  void navagatorTo(BuildContext context) {
     Navigator.push(
         context,
         MaterialPageRoute(

@@ -237,10 +237,6 @@ class _InputScreen extends State<InputScreen> {
   }
 
   void updateFavIds() async {
-    //test
-    FavIdList.add("figure1");
-    FavIdList.add("figure2");
-
     final response = await http.post(
       Uri.parse(_localhost() + "/updateFavIds"),
       headers: <String, String>{
@@ -251,7 +247,6 @@ class _InputScreen extends State<InputScreen> {
         'favIds': FavIdList.join(',')
       }),
     );
-
     debugPrint(FavIdList.join(','));
   }
 

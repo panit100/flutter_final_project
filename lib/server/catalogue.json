@@ -25,9 +25,14 @@
         "image":"Key4.png"
     },
     {
-        "id": "manga",
+        "id": "manga1",
         "name":"Manga",
         "image":"Manga.png"
+    },
+    {
+        "id": "manga2",
+        "name":"Manga",
+        "image":"Manga2.png"
     },
     {
         "id": "standee",

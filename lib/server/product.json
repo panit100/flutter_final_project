@@ -1,7 +1,7 @@
 [
     {
         "id": "artbook",
-        "name":"Artbook Liberate",
+        "name":"Liberate Official Artbook",
         "image":"Artbook.png",
         "description": "หนังสือรวมภาพ illustration จากเกม Liberate สินค้าลิขสิทธิ์แท้จากผู้สร้างโดยตรงภายในจะประกอบไปด้วยรูปภาพภายในเกมรวมไปถึงแนวคิด ภาพร่าง และ หลักการออกแบบตัวละครต่างๆ ภายในเกมที่ไม่สามารถที่จะหาที่ไหนได้อีกแล้ว จำนวน 100 หน้า",
         "isFavourite": false,
@@ -10,7 +10,7 @@
     },
     {
         "id": "keychain1",
-        "name":"Keychain 1",
+        "name":"Keychain Red riding hood",
         "image":"Key1.png",
         "description": "พวงกุญแจจากเกม Liberate สินค้าลิขสิทธิ์แท้จากผู้สร้างโดยตรง รับประกันคุณภาพสินค้า พวงกกุญแจอะคริลิค เคลือบเงา หนา 3 mm",
         "isFavourite": false,
@@ -19,7 +19,7 @@
     },
     {
         "id": "keychain2",
-        "name":"Keychain 2",
+        "name":"Keychain Amelie",
         "image":"Key2.png",
         "description": "พวงกุญแจจากเกม Liberate สินค้าลิขสิทธิ์แท้จากผู้สร้างโดยตรง รับประกันคุณภาพสินค้า พวงกกุญแจอะคริลิค เคลือบเงา หนา 3 mm",
         "isFavourite": false,
@@ -28,7 +28,7 @@
     },
     {
         "id": "keychain3",
-        "name":"Keychain 3",
+        "name":"Keychain Director's daughter",
         "image":"Key3.png",
         "description": "พวงกุญแจจากเกม Liberate สินค้าลิขสิทธิ์แท้จากผู้สร้างโดยตรง รับประกันคุณภาพสินค้า พวงกกุญแจอะคริลิค เคลือบเงา หนา 3 mm",
         "isFavourite": false,
@@ -37,7 +37,7 @@
     },
     {
         "id": "keychain4",
-        "name":"Keychain 4",
+        "name":"Keychain Director",
         "image":"Key4.png",
         "description": "พวงกุญแจจากเกม Liberate สินค้าลิขสิทธิ์แท้จากผู้สร้างโดยตรง รับประกันคุณภาพสินค้า พวงกกุญแจอะคริลิค เคลือบเงา หนา 3 mm",
         "isFavourite": false,
@@ -45,8 +45,8 @@
         "qty": 20
     },
     {
-        "id": "manga",
-        "name":"Manga",
+        "id": "manga1",
+        "name":"Liberate Manga",
         "image":"Manga.png",
         "description": "มังงะจากผู้แต่งเนื้อเรื่องและสร้างเกม Liberate สินค้าลิขสิทธิ์แท้จากผู้สร้างโดยตรง เนื้อเรื่องที่ไม่เคยเปิดเผยที่ไหนมาก่อน กล่าวถึงตัว “ลูกสาวผู้อำนวยการ” ที่อาศัยอยู่บนโลกอีกฝั่งหนึ่ง จนกระทั่งได้พบกับหญิงสาวที่นามว่า “อเมเลีย” ",
         "isFavourite": false,
@@ -54,8 +54,17 @@
         "qty": 20
     },
     {
+        "id": "manga2",
+        "name":"Liberate After Manga",
+        "image":"Manga2.png",
+        "description": "มังงะจากผู้แต่งเนื้อเรื่องและสร้างเกม Liberate สินค้าลิขสิทธิ์แท้จากผู้สร้างโดยตรง เนื้อเรื่องที่ไม่เคยเปิดเผยที่ไหนมาก่อน กล่าวถึงตัว “อเมเลีย” หลังจากที่กลับออกมาจากอีกโลกหนึ่งได้ แต่ชีวิตของเธอกลับมาไม่เหมือนเดิมอีกต่อไป…",
+        "isFavourite": false,
+        "price": 150,
+        "qty": 20
+    },
+    {
         "id": "standee",
-        "name":"Standee",
+        "name":"Liberate Standee",
         "image":"Standee.png",
         "description": "สแตนดี้อะคริลิคจากเกม Liberate สินค้าลิขสิทธิ์แท้จากผู้สร้างโดยตรง รับประกันคุณภาพสินค้า ของแถมประกอบด้วยขาตั้ง 1 อัน",
         "isFavourite": false,
@@ -63,3 +72,4 @@
         "qty": 20
     }
 ]
+
