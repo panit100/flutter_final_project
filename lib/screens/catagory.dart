@@ -152,7 +152,7 @@ class CatagoryState extends State<CatagoryPage> {
     debugPrint(favIdList.join(','));
   }
 
-  void onWillPop(){
+  void onWillPop(BuildContext context){
     if (isFavourite == false){
       if(favIdList.contains(widget.itemID)){
         favIdList.remove(widget.itemID);
@@ -161,7 +161,9 @@ class CatagoryState extends State<CatagoryPage> {
     else{
       favIdList.add(widget.itemID);
     }
+
     updateFavIds();
+    Navigator.pop(context);
   }
 
   @override
@@ -260,16 +262,23 @@ class CatagoryState extends State<CatagoryPage> {
       userOrderList.add(UserOrdersModel(
           username: widget.currentUsername, orders: currentOrder));
     }
-    
-    onWillPop();
+    if (isFavourite == false){
+      if(favIdList.contains(widget.itemID)){
+        favIdList.remove(widget.itemID);
+      }
+    }
+    else{
+      favIdList.add(widget.itemID);
+    }
+    updateFavIds();
     updateOrderList();
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope( onWillPop: () async {
-      onWillPop();
-      return false;
+      onWillPop(context);
+      return true;
     },
     child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 232, 232, 232),
