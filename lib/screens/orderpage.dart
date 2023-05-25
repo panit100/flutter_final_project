@@ -7,16 +7,20 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
 
+// String _localhost() {
+//   if (Platform.isAndroid)
+//     return 'http://10.0.2.2:3000/';
+//   else // for iOS simulator
+//     return 'http://localhost:3000/';
+// }
+
 String _localhost() {
-  if (Platform.isAndroid)
-    return 'http://10.0.2.2:3000/';
-  else // for iOS simulator
-    return 'http://localhost:3000/';
+  return 'http://localhost:3000';
 }
 
 class OrderPageRoute extends StatefulWidget {
   final String currentUsername;
-  const OrderPageRoute({super.key,required this.currentUsername});
+  const OrderPageRoute({super.key, required this.currentUsername});
 
   @override
   State<OrderPageRoute> createState() => OrderPageRouteState();
@@ -26,7 +30,7 @@ class OrderPageRouteState extends State<OrderPageRoute> {
   String username = '';
   List<UserOrdersModel> orderlist = [];
   List<OrderModel> currentOrderList = [];
-  
+
   Future getUserOrderList() async {
     final response = await http.get(Uri.parse("${_localhost()}/getUserOder"));
 
@@ -54,66 +58,98 @@ class OrderPageRouteState extends State<OrderPageRoute> {
     }
 
     orderlist = userOders;
+
+    username = widget.currentUsername;
+    for (UserOrdersModel currentUserOrderList in orderlist) {
+      if (currentUserOrderList.username == username) {
+        currentOrderList = currentUserOrderList.orders;
+      }
+    }
   }
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-    await getUserOrderList();
-
-    username = widget.currentUsername;
-    for(UserOrdersModel currentUserOrderList in orderlist)
-    {
-      if(currentUserOrderList.username == username)
-      {
-        currentOrderList = currentUserOrderList.orders;
-      }
-    }
+      await this.getUserOrderList();
+      setState(() {});
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Order'),),
-      body: SingleChildScrollView(
-        child: Column(
-          children: currentOrderList.map(
-                  (e) =>  Padding(
-                  padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
-                  child: Container(
-                    color:const Color.fromARGB(141, 172, 172, 172),
-                    width: 390,
-                    height: 150,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                      children: [
-                        Image.asset("assets/images/${e.product.image.toString()}",width: 100,height: 100,),
-                        Column(mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(padding: const EdgeInsets.only(left: 20,bottom: 10,top: 10),
-                          child: Text('Order Name: ${e.product.name.toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold))),
-                          Padding(padding: const EdgeInsets.only(left: 20,bottom: 10),
-                          child: Text('Price: ${e.product.price.toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold))),
-                          Padding(padding: const EdgeInsets.only(left: 20,bottom: 10),
-                          child: Text('Total Price: ${(e.product.price * e.qty).toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold))),
-                          Padding(padding: const EdgeInsets.only(left: 20,bottom: 10),
-                          child: Text('Status: ${e.status.toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold)))
-                          ]
-                        ),
-                        Padding(padding: const EdgeInsets.only(left: 10),
-                          child: Text('X ${e.qty.toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold)))
-                      ],
-                     )
-                    )
-                  )
-                ),
-              ).toList(),
-        )
+      appBar: AppBar(
+        title: const Text('Order'),
       ),
+      body: SingleChildScrollView(
+          child: Column(
+        children: currentOrderList
+            .map(
+              (e) => Padding(
+                  padding: const EdgeInsets.only(left: 0, top: 10, bottom: 0),
+                  child: Container(
+                      color: const Color.fromARGB(141, 172, 172, 172),
+                      width: 390,
+                      height: 150,
+                      child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                "assets/images/${e.product.image.toString()}",
+                                width: 100,
+                                height: 100,
+                              ),
+                              Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 20, bottom: 10, top: 10),
+                                        child: Text(
+                                            'Order Name: ${e.product.name.toString()}',
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold))),
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 20, bottom: 10),
+                                        child: Text(
+                                            'Price: ${e.product.price.toString()}',
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold))),
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 20, bottom: 10),
+                                        child: Text(
+                                            'Total Price: ${(e.product.price * e.qty).toString()}',
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold))),
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 20, bottom: 10),
+                                        child: Text(
+                                            'Status: ${e.status.toString()}',
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold)))
+                                  ]),
+                              Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text('X ${e.qty.toString()}',
+                                      style: const TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold)))
+                            ],
+                          )))),
+            )
+            .toList(),
+      )),
     );
   }
 }

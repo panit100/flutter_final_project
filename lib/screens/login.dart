@@ -11,18 +11,19 @@ class LoginRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold
-    (
-      body: LoginPageHeader()
-    );
+    return const Scaffold(body: LoginPageHeader());
   }
 }
 
+// String _localhost() {
+//   if (Platform.isAndroid)
+//     return 'http://10.0.2.2:3000/';
+//   else // for iOS simulator
+//     return 'http://localhost:3000/';
+// }
+
 String _localhost() {
-  if (Platform.isAndroid)
-    return 'http://10.0.2.2:3000/';
-  else // for iOS simulator
-    return 'http://localhost:3000/';
+  return 'http://localhost:3000';
 }
 
 class LoginPageHeader extends StatefulWidget {
@@ -53,26 +54,25 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
   List<Item> item = [];
 
   Future<List<Item>> showData() async {
-  final response = await http.get(Uri.parse(_localhost() + "/showDB"));
+    final response = await http.get(Uri.parse(_localhost() + "/showDB"));
 
-  var responseData = json.decode(response.body);
-  //Creating a list to store input data;
-  List<Item> items = [];
-  responseData.forEach((index, value) {
-    Item item = Item(
-      id: value["id"],
-      username: value["username"],
-      password: value["password"]);
-    items.add(item);
-  });
+    var responseData = json.decode(response.body);
+    //Creating a list to store input data;
+    List<Item> items = [];
+    responseData.forEach((index, value) {
+      Item item = Item(
+          id: value["id"],
+          username: value["username"],
+          password: value["password"]);
+      items.add(item);
+    });
 
-  return items;
+    return items;
   }
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      
       item = await showData();
 
       setState(() {});
@@ -80,143 +80,144 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
     super.initState();
   }
 
-    void onButtonPress(BuildContext context)
-    {
-      setState(() {
-        if(username == '' || password == '')
-        {
-          isShow = true;
-          errorText = 'Please Enter Email or Password';
-        }
-        item.map((e) => {        
-          if(e.username == username)
-          {
-            if(e.password == password)
-            {
-              NavagatorTo(context)
-            }
-          }
-        }
-        ).toList();
-      });
-    }
-    void onPasswordFieldChanged(String value)
-    {
-      setState(() {
-        password = value;
-      });
-    }
-    void onUsernameFieldChanged(String value)
-    {
-      setState(() {
-        username = value;
-      });
-    }
-    void NavagatorTo(BuildContext context)
-    {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => BuyShopRoute(currentUsername: username)));
-    }
+  void onButtonPress(BuildContext context) {
+    setState(() {
+      if (username == '' || password == '') {
+        isShow = true;
+        errorText = 'Please Enter Email or Password';
+      }
+      item
+          .map((e) => {
+                if (e.username == username)
+                  {
+                    if (e.password == password) {NavagatorTo(context)}
+                  }
+              })
+          .toList();
+    });
+  }
+
+  void onPasswordFieldChanged(String value) {
+    setState(() {
+      password = value;
+    });
+  }
+
+  void onUsernameFieldChanged(String value) {
+    setState(() {
+      username = value;
+    });
+  }
+
+  void NavagatorTo(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BuyShopRoute(currentUsername: username)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-        children:[
-          const SizedBox(
-            height: 170,
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 30),
-            child: SizedBox(
+      children: [
+        const SizedBox(
+          height: 170,
+        ),
+        const Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: SizedBox(
               width: 700,
-              child: Text('Welcome',
-              style: TextStyle(fontSize: 20),
-              textAlign: TextAlign.left,)
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 30,top: 10),
-            child: SizedBox(
+              child: Text(
+                'Welcome',
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.left,
+              )),
+        ),
+        const Padding(
+          padding: EdgeInsets.only(left: 30, top: 10),
+          child: SizedBox(
               width: 700,
-              child: Text('Please Login or Sign up to our app',
-              style: TextStyle(fontSize: 15),
-              textAlign: TextAlign.left,)
-            ),
+              child: Text(
+                'Please Login or Sign up to our app',
+                style: TextStyle(fontSize: 15),
+                textAlign: TextAlign.left,
+              )),
+        ),
+        const SizedBox(
+          height: 50,
+        ),
+        const Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: Text(
+            'Username',
+            style: TextStyle(fontSize: 10),
           ),
-          const SizedBox(
-            height: 50,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 30, right: 30),
+          child: TextFormField(
+            onChanged: (value) {
+              onUsernameFieldChanged(value);
+            },
+            decoration: const InputDecoration(hintText: 'Enter Email'),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 30),
-            child: Text('Username',
-            style: TextStyle(fontSize: 10),),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        const Padding(
+          padding: EdgeInsets.only(left: 30),
+          child: Text(
+            'Password',
+            style: TextStyle(fontSize: 10),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30,right: 30),
-            child: TextFormField(
-              onChanged: (value) {
-                onUsernameFieldChanged(value);
-              },
-              decoration: const InputDecoration(
-              hintText: 'Enter Email'
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Padding(
-            padding: EdgeInsets.only(left: 30),
-            child: Text('Password',
-            style: TextStyle(fontSize: 10),),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 30,right: 30),
-            child: TextFormField(
-              onChanged: (value) {
-                onPasswordFieldChanged(value);
-              },
-              obscureText: true,
-              decoration: const InputDecoration(
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 30, right: 30),
+          child: TextFormField(
+            onChanged: (value) {
+              onPasswordFieldChanged(value);
+            },
+            obscureText: true,
+            decoration: const InputDecoration(
               hintText: 'Enter Password',
-              ),
             ),
           ),
-          const SizedBox(
-            height: 50,
-          ),
-          Center(
-            child: ElevatedButton(
+        ),
+        const SizedBox(
+          height: 50,
+        ),
+        Center(
+          child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                side: const BorderSide(
-                  width: 1,
-                  color: Colors.black
-                )
-              ),
+                  backgroundColor: Colors.white,
+                  side: const BorderSide(width: 1, color: Colors.black)),
               onPressed: (() {
                 onButtonPress(context);
               }),
               child: const SizedBox(
                 width: 200,
-                child: Text('Login',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25,color: Colors.black),),
-                )
-            ),
-          ),
-          Visibility(
+                child: Text(
+                  'Login',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 25, color: Colors.black),
+                ),
+              )),
+        ),
+        Visibility(
             visible: isShow,
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 30,right: 30),
-                child: Text(errorText.toString(),
-                textAlign: TextAlign.center,
+                padding: const EdgeInsets.only(left: 30, right: 30),
+                child: Text(
+                  errorText.toString(),
+                  textAlign: TextAlign.center,
                 ),
               ),
-            )    
-          ),
-          const SizedBox(
+            )),
+        const SizedBox(
           height: 10,
         ),
         Padding(
@@ -243,7 +244,7 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
                 ),
               )),
         ),
-        ],
-      );
+      ],
+    );
   }
 }

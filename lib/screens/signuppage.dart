@@ -21,11 +21,15 @@ class SignUpInputField extends StatefulWidget {
   State<SignUpInputField> createState() => SignUpInputFieldState();
 }
 
+// String _localhost() {
+//   if (Platform.isAndroid)
+//     return 'http://10.0.2.2:3000/';
+//   else // for iOS simulator
+//     return 'http://localhost:3000/';
+// }
+
 String _localhost() {
-  if (Platform.isAndroid)
-    return 'http://10.0.2.2:3000/';
-  else // for iOS simulator
-    return 'http://localhost:3000/';
+  return 'http://localhost:3000';
 }
 
 class SignUpInputFieldState extends State<SignUpInputField> {
@@ -39,8 +43,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
         isPass = true;
         addData();
         Navigator.push(context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginRoute()));
+            MaterialPageRoute(builder: (context) => const LoginRoute()));
       }
     });
   }

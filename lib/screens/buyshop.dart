@@ -12,17 +12,21 @@ import 'dart:convert';
 
 class BuyShopRoute extends StatefulWidget {
   final String currentUsername;
-  const BuyShopRoute({super.key,required this.currentUsername});
+  const BuyShopRoute({super.key, required this.currentUsername});
 
   @override
   State<BuyShopRoute> createState() => BuyShopPageState();
 }
 
+// String _localhost() {
+//   if (Platform.isAndroid)
+//     return 'http://10.0.2.2:3000/';
+//   else // for iOS simulator
+//     return 'http://localhost:3000/';
+// }
+
 String _localhost() {
-  if (Platform.isAndroid)
-    return 'http://10.0.2.2:3000/';
-  else // for iOS simulator
-    return 'http://localhost:3000/';
+  return 'http://localhost:3000';
 }
 
 class BuyShopPageState extends State<BuyShopRoute> {
@@ -51,7 +55,7 @@ class BuyShopPageState extends State<BuyShopRoute> {
 
   @override
   void initState() {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       username = widget.currentUsername;
       await this.getCategoryList();
 
@@ -59,62 +63,96 @@ class BuyShopPageState extends State<BuyShopRoute> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(scrollDirection: Axis.vertical,child: Column(
-      children:[
-        const SizedBox(
-          height: 70,
-        ),
-        SizedBox(
-          width: 350,
-          child: Padding(padding: const EdgeInsets.only(left: 30),
-          child: Text('Hi, $username',style: const TextStyle(fontSize: 20),) ),
-        ),
-        const SizedBox(
-          height: 25
-        ),
-        const Text('Category',style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold)),
-        SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          padding: const EdgeInsets.only(left: 30,right: 30),
-          child: Wrap(
-            spacing: 20,
-            runSpacing: 16,
-            children: categoryList.map(
-                  (e) => Padding(
-                  padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
-                  child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => CatagoryPage(itemID: e.id,userID: username,currentUsername: 'kuy',)));
-                  },
-                  child: SizedBox(height: 120,width: 120,child: Image.asset("assets/images/${e.image.toString()}"))),
-                )
-              ).toList(),
-            )
-          )
-        ],
-      )
-    ),
-    bottomNavigationBar:BottomNavigationBar(items: const <BottomNavigationBarItem>[ 
-    BottomNavigationBarItem(icon: Icon(Icons.person),label: 'profile'),
-    BottomNavigationBarItem(icon: Icon(Icons.star,color: Colors.yellow,),label: 'Favorite'),
-    BottomNavigationBarItem(icon: Icon(Icons.shop),label: 'Order')
-    ],
-    onTap: (x) {
-      if(x == 0)
-      {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => ProfileRoute(currentUsername: widget.currentUsername)));
-      }
-      if(x == 1)
-      {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => FavoritePageRoute(currentUsername: widget.currentUsername)));
-      }
-      if(x == 2)
-      {
-        Navigator.push(context,MaterialPageRoute(builder: (context) => OrderPageRoute(currentUsername: widget.currentUsername)));
-      }
-    }));
+        body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 70,
+                ),
+                SizedBox(
+                  width: 350,
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 30),
+                      child: Text(
+                        'Hi, $username',
+                        style: const TextStyle(fontSize: 20),
+                      )),
+                ),
+                const SizedBox(height: 25),
+                const Text('Category',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    child: Wrap(
+                      spacing: 20,
+                      runSpacing: 16,
+                      children: categoryList
+                          .map((e) => Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 0, top: 10, bottom: 0),
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CatagoryPage(
+                                                    itemID: e.id,
+                                                    userID: username,
+                                                    currentUsername: username,
+                                                  )));
+                                    },
+                                    child: SizedBox(
+                                        height: 120,
+                                        width: 120,
+                                        child: Image.asset(
+                                            "assets/images/${e.image.toString()}"))),
+                              ))
+                          .toList(),
+                    ))
+              ],
+            )),
+        bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person), label: 'profile'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                  label: 'Favorite'),
+              BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Order')
+            ],
+            onTap: (x) {
+              if (x == 0) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileRoute(
+                            currentUsername: widget.currentUsername)));
+              }
+              if (x == 1) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => FavoritePageRoute(
+                            currentUsername: widget.currentUsername)));
+              }
+              if (x == 2) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OrderPageRoute(
+                            currentUsername: widget.currentUsername)));
+              }
+            }));
   }
 }

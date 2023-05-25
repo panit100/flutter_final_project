@@ -2,9 +2,11 @@ import 'package:final_project/models/order_model/order_model.dart';
 import 'package:final_project/models/product_model/product_model.dart';
 import 'package:final_project/models/userOrder_model/userOrder_model.dart';
 import 'package:final_project/models/user_model/user_model.dart';
+import 'package:final_project/screens/buyshop.dart';
 import 'package:final_project/screens/orderpage.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/widgets/inputscreen.dart';
+import 'package:collection/collection.dart';
 import 'widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
@@ -14,17 +16,25 @@ class CatagoryPage extends StatefulWidget {
   final String currentUsername;
   final String itemID;
   final String userID;
-  const CatagoryPage({super.key,required this.itemID,required this.userID,required this.currentUsername});
+  const CatagoryPage(
+      {super.key,
+      required this.itemID,
+      required this.userID,
+      required this.currentUsername});
 
   @override
   State<CatagoryPage> createState() => CatagoryState();
 }
 
+// String _localhost() {
+//   if (Platform.isAndroid)
+//     return 'http://10.0.2.2:3000/';
+//   else // for iOS simulator
+//     return 'http://localhost:3000/';
+// }
+
 String _localhost() {
-  if (Platform.isAndroid)
-    return 'http://10.0.2.2:3000/';
-  else // for iOS simulator
-    return 'http://localhost:3000/';
+  return 'http://localhost:3000';
 }
 
 class CatagoryState extends State<CatagoryPage> {
@@ -91,7 +101,7 @@ class CatagoryState extends State<CatagoryPage> {
     return userData;
   }
 
-    void updateOrderList() async {
+  void updateOrderList() async {
     final response = await http.post(
       Uri.parse(_localhost() + "/updateUserOder"),
       headers: <String, String>{
@@ -99,9 +109,9 @@ class CatagoryState extends State<CatagoryPage> {
       },
       body: jsonEncode(userOrderList),
     );
-    }
+  }
 
-    Future getUserOrderList() async {
+  Future getUserOrderList() async {
     final response = await http.get(Uri.parse("${_localhost()}/getUserOder"));
 
     List<UserOrdersModel> userOders = [];
@@ -133,33 +143,31 @@ class CatagoryState extends State<CatagoryPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-
       await this.getProductList();
-
+      await this.getUserOrderList();
       await this.getUserData();
 
-      productList.map((e) => {
-        if(e.id == widget.itemID)
-        {
-          mercendiseImg = e.image,
-          mercendiseName = e.name,
-          description = e.description,
-          price = e.price,
-          amount = 1,
-          totalPrice = price * amount,
-          isFavourite = favIdList.contains(e.id),
-
-          if (isFavourite == false)
-          {
-          favouriteColor = Colors.grey
-          } 
-          else 
-          {
-          favouriteColor = Colors.amber,
-          }
-        },
-        }).toList();
-    setState(() {});
+      productList
+          .map((e) => {
+                if (e.id == widget.itemID)
+                  {
+                    mercendiseImg = e.image,
+                    mercendiseName = e.name,
+                    description = e.description,
+                    price = e.price,
+                    amount = 1,
+                    totalPrice = price * amount,
+                    isFavourite = favIdList.contains(e.id),
+                    if (isFavourite == false)
+                      {favouriteColor = Colors.grey}
+                    else
+                      {
+                        favouriteColor = Colors.amber,
+                      }
+                  },
+              })
+          .toList();
+      setState(() {});
     });
     super.initState();
   }
@@ -193,21 +201,55 @@ class CatagoryState extends State<CatagoryPage> {
     });
   }
 
-  void onPressBuy()
-  {
-    List<OrderModel> currentOrder = [];
-    currentOrder.add(OrderModel(totalPrice: totalPrice, orderId: '0', payment: 'payment', product: ProductModel(image: mercendiseImg, id: widget.itemID, name: mercendiseName, price: price, description: description, isFavourite: isFavourite), status: 'Wait for product', qty: amount));
-    userOrderList.add(UserOrdersModel(username: widget.currentUsername, orders: currentOrder));
+  void onPressBuy() async {
+    if (userOrderList.firstWhereOrNull(
+            (val) => val.username == widget.currentUsername) !=
+        null) {
+      var userOrder = userOrderList
+          .firstWhere((val) => val.username == widget.currentUsername);
+
+      userOrder.orders.add(OrderModel(
+          totalPrice: totalPrice,
+          orderId: '0',
+          payment: 'payment',
+          product: ProductModel(
+              image: mercendiseImg,
+              id: widget.itemID,
+              name: mercendiseName,
+              price: price,
+              description: description,
+              isFavourite: isFavourite),
+          status: 'Wait for product',
+          qty: amount));
+    } else {
+      List<OrderModel> currentOrder = [];
+      currentOrder.add(OrderModel(
+          totalPrice: totalPrice,
+          orderId: '0',
+          payment: 'payment',
+          product: ProductModel(
+              image: mercendiseImg,
+              id: widget.itemID,
+              name: mercendiseName,
+              price: price,
+              description: description,
+              isFavourite: isFavourite),
+          status: 'Wait for product',
+          qty: amount));
+      userOrderList.add(UserOrdersModel(
+          username: widget.currentUsername, orders: currentOrder));
+    }
+
     updateOrderList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor:const Color.fromARGB(255, 232, 232, 232),
+        backgroundColor: const Color.fromARGB(255, 232, 232, 232),
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.black),
-          backgroundColor:const Color.fromARGB(255, 232, 232, 232),
+          backgroundColor: const Color.fromARGB(255, 232, 232, 232),
           title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             const Padding(padding: EdgeInsets.only(left: 245.0)),
             FloatingActionButton(
@@ -235,29 +277,35 @@ class CatagoryState extends State<CatagoryPage> {
                     Text(
                       ('Price ${price.toString()}'),
                       textAlign: TextAlign.left,
-                      style: const TextStyle(color: Colors.black, fontSize: 20.0),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 20.0),
                     ),
                     Text(
                       'TotalPrice ${totalPrice.toString()}',
                       textAlign: TextAlign.left,
-                      style: const TextStyle(color: Colors.black, fontSize: 20.0),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 20.0),
                     ),
                   ]),
                   const Padding(padding: EdgeInsets.only(left: 100.0)),
                   TextButton(
-                  onPressed: (() {
-                    onPressBuy();
-                    Navigator.of(context).push(MaterialPageRoute(builder: ((context) => OrderPageRoute(currentUsername: widget.currentUsername))));
-                  }),
-                  style: TextButton.styleFrom(backgroundColor: Colors.black),
-                  child: const Padding(
-                  padding: EdgeInsets.all(2.0),
-                  child: Text("Buy",
-                  style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.white,
-                  backgroundColor: Colors.black),
-                  )),)
+                    onPressed: (() {
+                      onPressBuy();
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: ((context) => BuyShopRoute(
+                              currentUsername: widget.currentUsername))));
+                    }),
+                    style: TextButton.styleFrom(backgroundColor: Colors.black),
+                    child: const Padding(
+                        padding: EdgeInsets.all(2.0),
+                        child: Text(
+                          "Buy",
+                          style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.white,
+                              backgroundColor: Colors.black),
+                        )),
+                  )
                 ]),
           ),
         ),
@@ -279,7 +327,8 @@ class CatagoryState extends State<CatagoryPage> {
                     Text(
                       mercendiseName.toString(),
                       textAlign: TextAlign.left,
-                      style: const TextStyle(color: Colors.black, fontSize: 30.0),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 30.0),
                     ),
                     const SizedBox(
                       height: 30,
@@ -287,7 +336,8 @@ class CatagoryState extends State<CatagoryPage> {
                     Text(
                       description.toString(),
                       textAlign: TextAlign.left,
-                      style: const TextStyle(color: Colors.black, fontSize: 15.0),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 15.0),
                     ),
                     const SizedBox(
                       height: 30,
@@ -296,39 +346,39 @@ class CatagoryState extends State<CatagoryPage> {
                 ),
               ),
               Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      FloatingActionButton(
-                        heroTag: "btn2",
-                        backgroundColor: Colors.black,
-                        onPressed: () {
-                          decreaseAmount();
-                        },
-                        child: const Icon(Icons.remove),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        amount.toString(),
-                        style:const TextStyle(color: Colors.black, fontSize: 30.0),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      FloatingActionButton(
-                        heroTag: "btn3",
-                        backgroundColor: Colors.black,
-                        onPressed: () {
-                          increaseAmount();
-                        },
-                        child:const Icon(Icons.add),
-                      )
-                    ]),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FloatingActionButton(
+                      heroTag: "btn2",
+                      backgroundColor: Colors.black,
+                      onPressed: () {
+                        decreaseAmount();
+                      },
+                      child: const Icon(Icons.remove),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      amount.toString(),
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 30.0),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    FloatingActionButton(
+                      heroTag: "btn3",
+                      backgroundColor: Colors.black,
+                      onPressed: () {
+                        increaseAmount();
+                      },
+                      child: const Icon(Icons.add),
+                    )
+                  ]),
             ],
           ),
-        )
-      );
+        ));
   }
 }
