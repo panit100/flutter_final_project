@@ -20,7 +20,6 @@ String _localhost() {
 class FavoritePagePageState extends State<FavoritePageRoute> {
   List<ProductModel> userFavoriteList = [];
   List<ProductModel> productList = [];
-  List<String> favoritelist =[];
   UserModel userData = UserModel(id: '', name: '', email: '', favouriteIds: '');
 
   Future getProductList() async {
@@ -73,7 +72,7 @@ class FavoritePagePageState extends State<FavoritePageRoute> {
 
       for(ProductModel currentProduct in productList )
       {
-        if(favoritelist.contains(currentProduct.id))
+        if(favIds.contains(currentProduct.id))
         {
           userFavoriteList.add(currentProduct);
         }
