@@ -1,10 +1,14 @@
 import 'dart:io';
 import 'package:final_project/screens/aboutuspage.dart';
+import 'package:final_project/models/user_model/user_model.dart';
 import 'package:final_project/screens/favoritepage.dart';
 import 'package:final_project/screens/homepage.dart';
 import 'package:final_project/screens/orderpage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'dart:convert';
 
 class ProfileRoute extends StatefulWidget {
   final String currentUsername;
@@ -28,6 +32,35 @@ class ProfliePageState extends State<ProfileRoute> {
   String? _email;
   File? _image;
 
+  String _localhost() {
+  return 'http://localhost:3000';
+}
+
+  Future<UserModel> getUserData() async {
+    final response = await http.post(
+      Uri.parse(_localhost() + "/getUser"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'username': widget.currentUsername,
+      }),
+    );
+
+    var responseData = json.decode(response.body);
+    //Creating a list to store input data;
+    UserModel userData = UserModel(
+        id: responseData["0"]["id"].toString(),
+        name: responseData["0"]["username"],
+        email: responseData["0"]["email"],
+        favouriteIds: responseData["0"]["favIds"]);
+
+    _username = userData.name;
+    _email = userData.email;
+
+    return userData;
+  }
+
   Future getImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
@@ -48,6 +81,9 @@ class ProfliePageState extends State<ProfileRoute> {
 
   @override
   void initState() {
+    getUserData();
+    setState(() {
+    });
     super.initState();
   }
 

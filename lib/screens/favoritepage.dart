@@ -1,5 +1,6 @@
 import 'package:final_project/models/product_model/product_model.dart';
 import 'package:final_project/models/user_model/user_model.dart';
+import 'package:final_project/screens/catagory.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
@@ -107,7 +108,7 @@ class FavoritePagePageState extends State<FavoritePageRoute> {
                     child: ElevatedButton(
                       style: const ButtonStyle(backgroundColor:MaterialStatePropertyAll<Color>(Color.fromARGB(141, 172, 172, 172))),
                       onPressed: () {
-
+                        Navigator.of(context).push(MaterialPageRoute(builder: ((context) => CatagoryPage(currentUsername: widget.currentUsername,itemID: e.id))));
                       }, 
                       child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
