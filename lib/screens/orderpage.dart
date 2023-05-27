@@ -183,8 +183,12 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                                         fontSize: 13,
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color: Colors
-                                                            .yellowAccent))
+                                                        color:
+                                                            Colors.yellowAccent,
+                                                        foreground: Paint()
+                                                          ..strokeWidth = 2
+                                                          ..color =
+                                                              Colors.black))
                                               ])))
                                     ]),
                               ),
