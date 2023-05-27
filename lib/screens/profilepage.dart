@@ -318,7 +318,7 @@ Widget UploadImageButton({
           child: Row(
             children: [
               SizedBox(
-                width: 20,
+                width: 245,
                 child: Text(
                   title,
                   textAlign: TextAlign.center,

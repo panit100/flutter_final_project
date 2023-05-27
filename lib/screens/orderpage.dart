@@ -94,7 +94,6 @@ class OrderPageRouteState extends State<OrderPageRoute> {
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.shopping_bag,
-                  color: Colors.yellow,
                 ),
                 label: 'Shop')
           ],
