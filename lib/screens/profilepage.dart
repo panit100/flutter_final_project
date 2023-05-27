@@ -317,10 +317,13 @@ Widget UploadImageButton({
           onPressed: onClick,
           child: Row(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: 20,
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                ),
               ),
-              Text(title)
             ],
           )));
 }
