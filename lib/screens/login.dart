@@ -93,15 +93,11 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
       if (currentItem.username == username) {
         if (currentItem.password == password) {
           navagatorTo(context);
+        } else {
+          isShow = true;
+          errorText = 'Password is wrong';
         }
-        else
-        {
-        isShow = true;
-        errorText = 'Password is wrong';
-      }
-      }
-      else
-      {
+      } else {
         isShow = true;
         errorText = 'this Username does not exist';
       }
@@ -204,9 +200,9 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
         ),
         Center(
           child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  side: const BorderSide(width: 1, color: Colors.black)),
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.black),
+              ),
               onPressed: (() {
                 onButtonPress(context);
               }),
@@ -215,7 +211,10 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
                 child: Text(
                   'Login',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 25, color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400),
                 ),
               )),
         ),

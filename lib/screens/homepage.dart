@@ -7,10 +7,7 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold
-    (
-      body: HomePageButton()
-    );
+    return const Scaffold(body: HomePageButton());
   }
 }
 
@@ -31,42 +28,72 @@ class HomePageButtonState extends State<HomePageButton> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          Center(
+              child: CircleAvatar(
+            radius: 80,
+            backgroundImage: Image.asset('assets/icons/Logo.png').image,
+            backgroundColor: Colors.white,
+          )),
           const SizedBox(
-            child: Center(
-              child:Text('Liberate Goods Shop'
-              ,style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold)
-              )
-            )
+            height: 50,
           ),
+          const SizedBox(
+              child: Center(
+                  child: Text('Liberate Goods Shop',
+                      style: TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold)))),
           const SizedBox(
             height: 250,
           ),
           ElevatedButton(
-            style: style,
-            onPressed:(() {Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginRoute()));
-            }),
-            child: const SizedBox(
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.black),
+              ),
+              onPressed: (() {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginRoute()));
+              }),
+              child: const SizedBox(
                 width: 250,
                 child: Center(
-                  child: Text('Login')
+                  child: Text(
+                    'Login',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400),
+                  ),
                 ),
-            ),
-          ),
-          const SizedBox(height: 20,
+              )),
+          const SizedBox(
+            height: 20,
           ),
           ElevatedButton(
-            style: style,
-            onPressed: (() {Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const SignUpRoute()));
-            }),
-            child: const SizedBox(
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.black),
+              ),
+              onPressed: (() {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignUpRoute()));
+              }),
+              child: const SizedBox(
                 width: 250,
                 child: Center(
-                  child: Text('Sign Up')
+                  child: Text(
+                    'Sign Up',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400),
+                  ),
                 ),
-            ),
-          ),
+              )),
         ],
       ),
     );
