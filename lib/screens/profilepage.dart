@@ -250,7 +250,10 @@ Widget ProfileButton({
                 const SizedBox(
                   width: 20,
                 ),
-                Icon(buttonIcon),
+                Icon(
+                  buttonIcon,
+                  color: Colors.white,
+                ),
                 const SizedBox(
                   width: 30,
                 ),
@@ -300,7 +303,10 @@ Widget UploadImageButton({
               const SizedBox(
                 width: 20,
               ),
-              Text(title)
+              Text(
+                title,
+                textAlign: TextAlign.center,
+              )
             ],
           )));
 }

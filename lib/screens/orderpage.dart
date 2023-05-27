@@ -168,7 +168,7 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                           padding: const EdgeInsets.only(
                                               left: 20, bottom: 10),
                                           child: Text(
-                                              'Status: ${e.status.toString()}',
+                                              'Status: <color=Colors.yellow>${e.status.toString()}',
                                               style: const TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.bold)))
