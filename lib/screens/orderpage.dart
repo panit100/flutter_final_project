@@ -167,11 +167,25 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                       Padding(
                                           padding: const EdgeInsets.only(
                                               left: 20, bottom: 10),
-                                          child: Text(
-                                              'Status: <color=Colors.yellow>${e.status.toString()}',
-                                              style: const TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.bold)))
+                                          child: RichText(
+                                              text: TextSpan(
+                                                  text: 'Status:',
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black),
+                                                  children: <TextSpan>[
+                                                TextSpan(
+                                                    text:
+                                                        '${e.status.toString()}',
+                                                    style: TextStyle(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors
+                                                            .yellowAccent))
+                                              ])))
                                     ]),
                               ),
                               Padding(
