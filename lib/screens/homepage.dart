@@ -43,7 +43,7 @@ class HomePageButtonState extends State<HomePageButton> {
                       style: TextStyle(
                           fontSize: 30, fontWeight: FontWeight.bold)))),
           const SizedBox(
-            height: 250,
+            height: 80,
           ),
           ElevatedButton(
               style: const ButtonStyle(
