@@ -16,9 +16,7 @@ class CatagoryPage extends StatefulWidget {
   final String currentUsername;
   final String itemID;
   const CatagoryPage(
-      {super.key,
-      required this.itemID,
-      required this.currentUsername});
+      {super.key, required this.itemID, required this.currentUsername});
 
   @override
   State<CatagoryPage> createState() => CatagoryState();
@@ -152,18 +150,21 @@ class CatagoryState extends State<CatagoryPage> {
     debugPrint(favIdList.join(','));
   }
 
-  void onWillPop(BuildContext context){
-    if (isFavourite == false){
-      if(favIdList.contains(widget.itemID)){
+  void onWillPop(BuildContext context) {
+    if (isFavourite == false) {
+      if (favIdList.contains(widget.itemID)) {
         favIdList.remove(widget.itemID);
       }
-    }
-    else{
+    } else {
       favIdList.add(widget.itemID);
     }
 
     updateFavIds();
-    Navigator.push(context,MaterialPageRoute(builder: (context) => BuyShopRoute(currentUsername: widget.currentUsername)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                BuyShopRoute(currentUsername: widget.currentUsername)));
   }
 
   @override
@@ -173,21 +174,20 @@ class CatagoryState extends State<CatagoryPage> {
       await getUserOrderList();
       await getUserData();
 
-      for(ProductModel currentProduct in productList){
-        if (currentProduct.id == widget.itemID){
-        mercendiseImg = currentProduct.image;
-        mercendiseName = currentProduct.name;
-        description = currentProduct.description;
-        price = currentProduct.price;
-        amount = 1;
-        totalPrice = price * amount;
-        isFavourite = favIdList.contains(currentProduct.id);
-        if (isFavourite == false){
-        favouriteColor = Colors.grey;
-        }
-        else{
-        favouriteColor = Colors.amber;
-        }
+      for (ProductModel currentProduct in productList) {
+        if (currentProduct.id == widget.itemID) {
+          mercendiseImg = currentProduct.image;
+          mercendiseName = currentProduct.name;
+          description = currentProduct.description;
+          price = currentProduct.price;
+          amount = 1;
+          totalPrice = price * amount;
+          isFavourite = favIdList.contains(currentProduct.id);
+          if (isFavourite == false) {
+            favouriteColor = Colors.grey;
+          } else {
+            favouriteColor = Colors.amber;
+          }
         }
       }
       setState(() {});
@@ -262,12 +262,11 @@ class CatagoryState extends State<CatagoryPage> {
       userOrderList.add(UserOrdersModel(
           username: widget.currentUsername, orders: currentOrder));
     }
-    if (isFavourite == false){
-      if(favIdList.contains(widget.itemID)){
+    if (isFavourite == false) {
+      if (favIdList.contains(widget.itemID)) {
         favIdList.remove(widget.itemID);
       }
-    }
-    else{
+    } else {
       favIdList.add(widget.itemID);
     }
     updateFavIds();
@@ -276,146 +275,155 @@ class CatagoryState extends State<CatagoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope( onWillPop: () async {
-      onWillPop(context);
-      return true;
-    },
-    child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 232, 232, 232),
-        appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
-          backgroundColor: const Color.fromARGB(255, 232, 232, 232),
-          title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            const Padding(padding: EdgeInsets.only(left: 245.0)),
-            FloatingActionButton(
-              heroTag: "btn1",
-              backgroundColor:
-                  const Color.fromARGB(255, 255, 255, 255).withOpacity(0),
-              elevation: 0.0,
-              onPressed: () {
-                checkFavourite();
-              },
-              child: Icon(Icons.star, color: favouriteColor),
-            ),
-          ]),
-        ),
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          child: SizedBox(
-            height: 50,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(padding: EdgeInsets.only(left: 30.0)),
-                  Column(children: [
-                    Text(
-                      ('Price ${price.toString()}'),
-                      textAlign: TextAlign.left,
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 20.0),
-                    ),
-                    Text(
-                      'TotalPrice ${totalPrice.toString()}',
-                      textAlign: TextAlign.left,
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 20.0),
-                    ),
-                  ]),
-                  const Padding(padding: EdgeInsets.only(left: 100.0)),
-                  TextButton(
-                    onPressed: (() {
-                      onPressBuy();
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: ((context) => BuyShopRoute(
-                              currentUsername: widget.currentUsername))));
-                    }),
-                    style: TextButton.styleFrom(backgroundColor: Colors.black),
-                    child: const Padding(
-                        padding: EdgeInsets.all(2.0),
-                        child: Text(
-                          "Buy",
-                          style: TextStyle(
-                              fontSize: 15.0,
-                              color: Colors.white,
-                              backgroundColor: Colors.black),
-                        )),
-                  )
-                ]),
-          ),
-        ),
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Image.asset(
-                'assets/images/${mercendiseImg.toString()}',
-                width: 250,
-              ),
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                height: 270,
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: Column(
-                  children: [
-                    Text(
-                      mercendiseName.toString(),
-                      textAlign: TextAlign.left,
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 30.0),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      description.toString(),
-                      textAlign: TextAlign.left,
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 15.0),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                  ],
+    return WillPopScope(
+        onWillPop: () async {
+          onWillPop(context);
+          return true;
+        },
+        child: Scaffold(
+            backgroundColor: const Color.fromARGB(255, 232, 232, 232),
+            appBar: AppBar(
+              iconTheme: const IconThemeData(color: Colors.black),
+              backgroundColor: const Color.fromARGB(255, 232, 232, 232),
+              title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                const Padding(padding: EdgeInsets.only(left: 245.0)),
+                FloatingActionButton(
+                  heroTag: "btn1",
+                  backgroundColor:
+                      const Color.fromARGB(255, 255, 255, 255).withOpacity(0),
+                  elevation: 0.0,
+                  onPressed: () {
+                    checkFavourite();
+                  },
+                  child: Icon(Icons.star, color: favouriteColor),
                 ),
+              ]),
+            ),
+            bottomNavigationBar: BottomAppBar(
+              color: Colors.white,
+              child: SizedBox(
+                height: 50,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(padding: EdgeInsets.only(left: 30.0)),
+                      Column(children: [
+                        Container(
+                          width: 220,
+                          child: Text(
+                            'TotalPrice ${totalPrice.toString()}',
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 20.0),
+                          ),
+                        )
+                      ]),
+                      const Padding(padding: EdgeInsets.only(left: 100.0)),
+                      TextButton(
+                        onPressed: (() {
+                          onPressBuy();
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: ((context) => BuyShopRoute(
+                                  currentUsername: widget.currentUsername))));
+                        }),
+                        style:
+                            TextButton.styleFrom(backgroundColor: Colors.black),
+                        child: const Padding(
+                            padding: EdgeInsets.all(2.0),
+                            child: Text(
+                              "Buy",
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  color: Colors.white,
+                                  backgroundColor: Colors.black),
+                            )),
+                      )
+                    ]),
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    FloatingActionButton(
-                      heroTag: "btn2",
-                      backgroundColor: Colors.black,
-                      onPressed: () {
-                        decreaseAmount();
-                      },
-                      child: const Icon(Icons.remove),
+            ),
+            body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    'assets/images/${mercendiseImg.toString()}',
+                    width: 250,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16.0),
+                    height: 270,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Column(
+                      children: [
+                        Text(
+                          mercendiseName.toString(),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 30.0),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          description.toString(),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 15.0),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          ('Price ${price.toString()}'),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 20.0),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      amount.toString(),
-                      style:
-                          const TextStyle(color: Colors.black, fontSize: 30.0),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    FloatingActionButton(
-                      heroTag: "btn3",
-                      backgroundColor: Colors.black,
-                      onPressed: () {
-                        increaseAmount();
-                      },
-                      child: const Icon(Icons.add),
-                    )
-                  ]),
-            ],
-          ),
-        )
-      )
-    );
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        FloatingActionButton(
+                          heroTag: "btn2",
+                          backgroundColor: Colors.black,
+                          onPressed: () {
+                            decreaseAmount();
+                          },
+                          child: const Icon(
+                            Icons.remove,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          amount.toString(),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 30.0),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        FloatingActionButton(
+                          heroTag: "btn3",
+                          backgroundColor: Colors.black,
+                          onPressed: () {
+                            increaseAmount();
+                          },
+                          child: const Icon(Icons.add, color: Colors.white),
+                        )
+                      ]),
+                ],
+              ),
+            )));
   }
 }
