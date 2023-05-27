@@ -310,10 +310,10 @@ class CatagoryState extends State<CatagoryPage> {
                       const Padding(padding: EdgeInsets.only(left: 30.0)),
                       Column(children: [
                         Container(
-                          width: 220,
+                          width: 170,
                           child: Text(
                             'TotalPrice ${totalPrice.toString()}',
-                            textAlign: TextAlign.left,
+                            textAlign: TextAlign.center,
                             style: const TextStyle(
                                 color: Colors.black, fontSize: 20.0),
                           ),
@@ -405,10 +405,13 @@ class CatagoryState extends State<CatagoryPage> {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text(
-                          amount.toString(),
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 30.0),
+                        Container(
+                          width: 50,
+                          child: Text(
+                            amount.toString(),
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 30.0),
+                          ),
                         ),
                         const SizedBox(
                           width: 10,
