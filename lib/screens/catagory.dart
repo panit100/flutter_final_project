@@ -311,11 +311,13 @@ class CatagoryState extends State<CatagoryPage> {
                       Column(children: [
                         Container(
                           width: 170,
-                          child: Text(
-                            'TotalPrice ${totalPrice.toString()}',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 20.0),
+                          child: Center(
+                            child: Text(
+                              'TotalPrice ${totalPrice.toString()}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 20.0),
+                            ),
                           ),
                         )
                       ]),
@@ -353,7 +355,7 @@ class CatagoryState extends State<CatagoryPage> {
                   ),
                   Container(
                     padding: const EdgeInsets.all(16.0),
-                    height: 270,
+                    height: 280,
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Column(
                       children: [
@@ -407,10 +409,12 @@ class CatagoryState extends State<CatagoryPage> {
                         ),
                         Container(
                           width: 50,
-                          child: Text(
-                            amount.toString(),
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 30.0),
+                          child: Center(
+                            child: Text(
+                              amount.toString(),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 30.0),
+                            ),
                           ),
                         ),
                         const SizedBox(

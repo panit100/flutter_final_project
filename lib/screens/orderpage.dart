@@ -175,10 +175,10 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                     ]),
                               ),
                               Padding(
-                                  padding: const EdgeInsets.only(left: 10),
+                                  padding: const EdgeInsets.only(left: 80),
                                   child: Text('X ${e.qty.toString()}',
                                       style: const TextStyle(
-                                          fontSize: 13,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold)))
                             ],
                           )))),
