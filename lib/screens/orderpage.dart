@@ -1,6 +1,7 @@
 import 'package:final_project/models/order_model/order_model.dart';
 import 'package:final_project/models/product_model/product_model.dart';
 import 'package:final_project/models/userOrder_model/userOrder_model.dart';
+import 'package:final_project/screens/buyshop.dart';
 import 'package:final_project/screens/profilepage.dart';
 import 'package:final_project/screens/favoritepage.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,13 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                   Icons.star,
                   color: Colors.yellow,
                 ),
-                label: 'Favorite')
+                label: 'Favorite'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.shopping_bag,
+                  color: Colors.yellow,
+                ),
+                label: 'Shop')
           ],
           onTap: (x) {
             if (x == 0) {
@@ -104,6 +111,13 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => FavoritePageRoute(
+                          currentUsername: widget.currentUsername)));
+            }
+            if (x == 2) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BuyShopRoute(
                           currentUsername: widget.currentUsername)));
             }
           }),
@@ -185,10 +199,32 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                                             FontWeight.bold,
                                                         color:
                                                             Colors.yellowAccent,
-                                                        foreground: Paint()
-                                                          ..strokeWidth = 2
-                                                          ..color =
-                                                              Colors.black))
+                                                        shadows: [
+                                                          Shadow(
+                                                              // bottomLeft
+                                                              offset: Offset(
+                                                                  -1.5, -1.5),
+                                                              color:
+                                                                  Colors.white),
+                                                          Shadow(
+                                                              // bottomRight
+                                                              offset: Offset(
+                                                                  1.5, -1.5),
+                                                              color:
+                                                                  Colors.white),
+                                                          Shadow(
+                                                              // topRight
+                                                              offset: Offset(
+                                                                  1.5, 1.5),
+                                                              color:
+                                                                  Colors.white),
+                                                          Shadow(
+                                                              // topLeft
+                                                              offset: Offset(
+                                                                  -1.5, 1.5),
+                                                              color:
+                                                                  Colors.white),
+                                                        ]))
                                               ])))
                                     ]),
                               ),

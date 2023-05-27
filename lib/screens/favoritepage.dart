@@ -1,5 +1,6 @@
 import 'package:final_project/models/product_model/product_model.dart';
 import 'package:final_project/models/user_model/user_model.dart';
+import 'package:final_project/screens/buyshop.dart';
 import 'package:final_project/screens/catagory.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/screens/profilepage.dart';
@@ -106,7 +107,13 @@ class FavoritePagePageState extends State<FavoritePageRoute> {
       bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
-            BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Order')
+            BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Order'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.shopping_bag,
+                  color: Colors.yellow,
+                ),
+                label: 'Shop')
           ],
           onTap: (x) {
             if (x == 0) {
@@ -121,6 +128,13 @@ class FavoritePagePageState extends State<FavoritePageRoute> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => OrderPageRoute(
+                          currentUsername: widget.currentUsername)));
+            }
+            if (x == 2) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => BuyShopRoute(
                           currentUsername: widget.currentUsername)));
             }
           }),
