@@ -9,16 +9,16 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
 
-// String _localhost() {
-//   if (Platform.isAndroid)
-//     return 'http://10.0.2.2:3000/';
-//   else // for iOS simulator
-//     return 'http://localhost:3000/';
-// }
-
 String _localhost() {
-  return 'http://localhost:3000';
+  if (Platform.isAndroid)
+    return 'http://10.0.2.2:3000';
+  else // for iOS simulator
+    return 'http://localhost:3000';
 }
+
+// String _localhost() {
+//   return 'http://localhost:3000';
+// }
 
 class OrderPageRoute extends StatefulWidget {
   final String currentUsername;
@@ -82,32 +82,31 @@ class OrderPageRouteState extends State<OrderPageRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: 'profile'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  ),
-                  label: 'Favorite')
-            ],
-            onTap: (x) {
-              if (x == 0) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProfileRoute(
-                            currentUsername: widget.currentUsername)));
-              }
-              if (x == 1) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => FavoritePageRoute(
-                            currentUsername: widget.currentUsername)));
-              }
-            }),
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                ),
+                label: 'Favorite')
+          ],
+          onTap: (x) {
+            if (x == 0) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfileRoute(
+                          currentUsername: widget.currentUsername)));
+            }
+            if (x == 1) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => FavoritePageRoute(
+                          currentUsername: widget.currentUsername)));
+            }
+          }),
       appBar: AppBar(
         title: const Text('Order'),
       ),

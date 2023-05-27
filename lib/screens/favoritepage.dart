@@ -10,14 +10,21 @@ import 'dart:convert';
 
 class FavoritePageRoute extends StatefulWidget {
   final String currentUsername;
-  const FavoritePageRoute({super.key,required this.currentUsername});
+  const FavoritePageRoute({super.key, required this.currentUsername});
 
   @override
   State<FavoritePageRoute> createState() => FavoritePagePageState();
 }
 
+// String _localhost() {
+//   return 'http://localhost:3000';
+// }
+
 String _localhost() {
-  return 'http://localhost:3000';
+  if (Platform.isAndroid)
+    return 'http://10.0.2.2:3000';
+  else // for iOS simulator
+    return 'http://localhost:3000';
 }
 
 class FavoritePagePageState extends State<FavoritePageRoute> {
@@ -73,10 +80,8 @@ class FavoritePagePageState extends State<FavoritePageRoute> {
       String favIds = userData.favouriteIds.toString();
       favIds.split(',');
 
-      for(ProductModel currentProduct in productList )
-      {
-        if(favIds.contains(currentProduct.id))
-        {
+      for (ProductModel currentProduct in productList) {
+        if (favIds.contains(currentProduct.id)) {
           userFavoriteList.add(currentProduct);
         }
       }
@@ -88,84 +93,108 @@ class FavoritePagePageState extends State<FavoritePageRoute> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-    await getProductList();
-    userData = await getUserData();
-    setState(() {
+      await getProductList();
+      userData = await getUserData();
+      setState(() {});
     });
-  });
-  super.initState();
+    super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: 'profile'),
-              BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Order')
-            ],
-            onTap: (x) {
-              if (x == 0) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProfileRoute(
-                            currentUsername: widget.currentUsername)));
-              }
-              if (x == 1) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => OrderPageRoute(
-                            currentUsername: widget.currentUsername)));
-              }
-            }),
-      appBar: AppBar(title: const Text('Favorite'),),
-      body: SingleChildScrollView(
-        child: Column(
-          children: userFavoriteList.map(
-                  (e) => Padding(
-                  padding: const EdgeInsets.only(left: 0,top: 10,bottom: 0),
-                  child: SizedBox(
-                    width: 400,
-                    height: 150,
-                    child: ElevatedButton(
-                      style: const ButtonStyle(backgroundColor:MaterialStatePropertyAll<Color>(Color.fromARGB(141, 172, 172, 172))),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: ((context) => CatagoryPage(currentUsername: widget.currentUsername,itemID: e.id))));
-                      }, 
-                      child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                      children: [
-                        Image.asset("assets/images/${e.image.toString()}",width: 100,height: 100,),
-                        Column(mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(padding: const EdgeInsets.only(left: 20,bottom: 10,top: 10),
-                          child: Text('Order Name: ${e.name.toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold))),
-                          Padding(padding: const EdgeInsets.only(left: 20,bottom: 10),
-                          child: Text('Price: ${e.price.toString()}',style: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold))),
-                          ]
-                        ),
-                        Padding(padding: const EdgeInsets.only(left: 10),
-                          child: IconButton(
-                            icon: const Icon(Icons.star,color: Colors.yellow,),
-                            onPressed: () {
-
-                            },
-                          )
-                          )
-                      ],
-                     )
-                    )
-                    )
-                  )
-                ),
-              ).toList(),
-        )
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
+            BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Order')
+          ],
+          onTap: (x) {
+            if (x == 0) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfileRoute(
+                          currentUsername: widget.currentUsername)));
+            }
+            if (x == 1) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OrderPageRoute(
+                          currentUsername: widget.currentUsername)));
+            }
+          }),
+      appBar: AppBar(
+        title: const Text('Favorite'),
       ),
+      body: SingleChildScrollView(
+          child: Column(
+        children: userFavoriteList
+            .map(
+              (e) => Padding(
+                  padding: const EdgeInsets.only(left: 0, top: 10, bottom: 0),
+                  child: SizedBox(
+                      width: 400,
+                      height: 150,
+                      child: ElevatedButton(
+                          style: const ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll<Color>(
+                                  Color.fromARGB(141, 172, 172, 172))),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: ((context) => CatagoryPage(
+                                    currentUsername: widget.currentUsername,
+                                    itemID: e.id))));
+                          },
+                          child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/${e.image.toString()}",
+                                    width: 100,
+                                    height: 100,
+                                  ),
+                                  Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 20, bottom: 10, top: 10),
+                                            child: Text(
+                                                'Order Name: ${e.name.toString()}',
+                                                style: const TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold))),
+                                        Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 20, bottom: 10),
+                                            child: Text(
+                                                'Price: ${e.price.toString()}',
+                                                style: const TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold))),
+                                      ]),
+                                  Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.star,
+                                          color: Colors.yellow,
+                                        ),
+                                        onPressed: () {},
+                                      ))
+                                ],
+                              ))))),
+            )
+            .toList(),
+      )),
     );
   }
 }
