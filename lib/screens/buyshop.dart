@@ -74,19 +74,19 @@ class BuyShopPageState extends State<BuyShopRoute> {
                 const SizedBox(
                   height: 70,
                 ),
-                SizedBox(
-                  width: 350,
-                  child: Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: Text(
-                        'Hi, $username',
-                        style: const TextStyle(fontSize: 20),
-                      )),
-                ),
-                const SizedBox(height: 25),
+                // SizedBox(
+                //   width: 350,
+                //   child: Padding(
+                //       padding: const EdgeInsets.only(left: 30),
+                //       child: Text(
+                //         'Hi, $username',
+                //         style: const TextStyle(fontSize: 20),
+                //       )),
+                // ),
+                // const SizedBox(height: 25),
                 const Text('Category',
                     style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                 SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     padding: const EdgeInsets.only(left: 30, right: 30),

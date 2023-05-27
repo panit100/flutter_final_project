@@ -311,6 +311,7 @@ class CatagoryState extends State<CatagoryPage> {
                       Column(children: [
                         Container(
                           width: 170,
+                          height: 15,
                           child: Center(
                             child: Text(
                               'TotalPrice ${totalPrice.toString()}',
