@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:final_project/screens/aboutuspage.dart';
+import 'package:final_project/screens/buyshop.dart';
 import 'package:final_project/models/user_model/user_model.dart';
 import 'package:final_project/screens/favoritepage.dart';
 import 'package:final_project/screens/homepage.dart';
@@ -84,6 +85,14 @@ class ProfliePageState extends State<ProfileRoute> {
     });
   }
 
+  void onWillPop(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                BuyShopRoute(currentUsername: widget.currentUsername)));
+  }
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -95,10 +104,14 @@ class ProfliePageState extends State<ProfileRoute> {
     });
     super.initState();
   }
-
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(onWillPop: () async {
+          onWillPop(context);
+          return true;
+        },
+    child: Scaffold(
         appBar: AppBar(title: const Text('Profile')),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -227,7 +240,10 @@ class ProfliePageState extends State<ProfileRoute> {
             // ),
             Center(child: ProfileText(title: 'Version 1.0.0')),
           ],
-        ));
+        )
+        )
+        );
+    
   }
 }
 
@@ -250,10 +266,7 @@ Widget ProfileButton({
                 const SizedBox(
                   width: 20,
                 ),
-                Icon(
-                  buttonIcon,
-                  color: Colors.white,
-                ),
+                Icon(buttonIcon),
                 const SizedBox(
                   width: 30,
                 ),
@@ -303,10 +316,7 @@ Widget UploadImageButton({
               const SizedBox(
                 width: 20,
               ),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-              )
+              Text(title)
             ],
           )));
 }
