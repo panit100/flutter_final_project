@@ -129,44 +129,51 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                 width: 100,
                                 height: 100,
                               ),
-                              Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 20, bottom: 10, top: 10),
-                                        child: Text(
-                                            'Order Name: ${e.product.name.toString()}',
-                                            style: const TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold))),
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 20, bottom: 10),
-                                        child: Text(
-                                            'Price: ${e.product.price.toString()}',
-                                            style: const TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold))),
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 20, bottom: 10),
-                                        child: Text(
-                                            'Total Price: ${(e.product.price * e.qty).toString()}',
-                                            style: const TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold))),
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 20, bottom: 10),
-                                        child: Text(
-                                            'Status: ${e.status.toString()}',
-                                            style: const TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold)))
-                                  ]),
+                              Container(
+                                width: 170,
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 20, bottom: 10, top: 10),
+                                          child: Text(
+                                              'Order Name: ${e.product.name.toString()}',
+                                              style: const TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight:
+                                                      FontWeight.bold))),
+                                      Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 20, bottom: 10),
+                                          child: Text(
+                                              'Price: ${e.product.price.toString()}',
+                                              style: const TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight:
+                                                      FontWeight.bold))),
+                                      Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 20, bottom: 10),
+                                          child: Text(
+                                              'Total Price: ${(e.product.price * e.qty).toString()}',
+                                              style: const TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight:
+                                                      FontWeight.bold))),
+                                      Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 20, bottom: 10),
+                                          child: Text(
+                                              'Status: ${e.status.toString()}',
+                                              style: const TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold)))
+                                    ]),
+                              ),
                               Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Text('X ${e.qty.toString()}',
