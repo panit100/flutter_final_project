@@ -183,7 +183,7 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                               left: 20, bottom: 10),
                                           child: RichText(
                                               text: TextSpan(
-                                                  text: 'Status:',
+                                                  text: 'Status:  ',
                                                   style: TextStyle(
                                                       fontSize: 13,
                                                       fontWeight:
@@ -197,33 +197,33 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                                         fontSize: 13,
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        color:
-                                                            Colors.yellowAccent,
+                                                        color: Color.fromARGB(
+                                                            255, 255, 215, 15),
                                                         shadows: [
                                                           Shadow(
                                                               // bottomLeft
                                                               offset: Offset(
                                                                   -1.5, -1.5),
                                                               color:
-                                                                  Colors.white),
+                                                                  Colors.black),
                                                           Shadow(
                                                               // bottomRight
                                                               offset: Offset(
                                                                   1.5, -1.5),
                                                               color:
-                                                                  Colors.white),
+                                                                  Colors.black),
                                                           Shadow(
                                                               // topRight
                                                               offset: Offset(
                                                                   1.5, 1.5),
                                                               color:
-                                                                  Colors.white),
+                                                                  Colors.black),
                                                           Shadow(
                                                               // topLeft
                                                               offset: Offset(
                                                                   -1.5, 1.5),
                                                               color:
-                                                                  Colors.white),
+                                                                  Colors.black),
                                                         ]))
                                               ])))
                                     ]),
