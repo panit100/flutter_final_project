@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
+import 'package:page_transition/page_transition.dart';
 
 class ProfileRoute extends StatefulWidget {
   final String currentUsername;
@@ -166,8 +167,9 @@ class ProfliePageState extends State<ProfileRoute> {
                   onClick: (() {
                     Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => OrderPageRoute(
+                        PageTransition(
+                            type: PageTransitionType.leftToRightWithFade,
+                            child: OrderPageRoute(
                                 currentUsername: widget.currentUsername)));
                   }),
                 )),
@@ -178,13 +180,14 @@ class ProfliePageState extends State<ProfileRoute> {
                     child: ProfileButton(
                   buttonIcon: Icons.favorite_border_outlined,
                   buttonTitle: 'Favourite',
-                  onClick: () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FavoritePageRoute(
-                                currentUsername: widget.currentUsername)))
-                  },
+                  onClick: (() => {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.leftToRightWithFade,
+                                child: FavoritePageRoute(
+                                    currentUsername: widget.currentUsername)))
+                      }),
                 )),
                 const SizedBox(
                   height: 10,
@@ -196,8 +199,9 @@ class ProfliePageState extends State<ProfileRoute> {
                   onClick: (() {
                     Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const AboutusRoute()));
+                        PageTransition(
+                            type: PageTransitionType.leftToRightWithFade,
+                            child: const AboutusRoute()));
                   }),
                 )),
                 const SizedBox(
@@ -210,8 +214,9 @@ class ProfliePageState extends State<ProfileRoute> {
                   onClick: (() {
                     Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const Homepage()));
+                        PageTransition(
+                            type: PageTransitionType.leftToRightWithFade,
+                            child: const Homepage()));
                   }),
                 )),
                 const SizedBox(

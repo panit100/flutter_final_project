@@ -9,6 +9,7 @@ import 'widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
+import 'package:page_transition/page_transition.dart';
 
 String _localhost() {
   if (Platform.isAndroid)
@@ -101,22 +102,25 @@ class OrderPageRouteState extends State<OrderPageRoute> {
             if (x == 0) {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => ProfileRoute(
+                  PageTransition(
+                      type: PageTransitionType.leftToRightWithFade,
+                      child: ProfileRoute(
                           currentUsername: widget.currentUsername)));
             }
             if (x == 1) {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => FavoritePageRoute(
+                  PageTransition(
+                      type: PageTransitionType.leftToRightWithFade,
+                      child: FavoritePageRoute(
                           currentUsername: widget.currentUsername)));
             }
             if (x == 2) {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => BuyShopRoute(
+                  PageTransition(
+                      type: PageTransitionType.leftToRightWithFade,
+                      child: BuyShopRoute(
                           currentUsername: widget.currentUsername)));
             }
           }),

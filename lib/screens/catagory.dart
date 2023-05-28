@@ -11,6 +11,7 @@ import 'widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
+import 'package:page_transition/page_transition.dart';
 
 class CatagoryPage extends StatefulWidget {
   final String currentUsername;
@@ -162,9 +163,9 @@ class CatagoryState extends State<CatagoryPage> {
     updateFavIds();
     Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) =>
-                BuyShopRoute(currentUsername: widget.currentUsername)));
+        PageTransition(
+            type: PageTransitionType.leftToRightWithFade,
+            child: BuyShopRoute(currentUsername: widget.currentUsername)));
   }
 
   @override
@@ -326,9 +327,10 @@ class CatagoryState extends State<CatagoryPage> {
                       TextButton(
                         onPressed: (() {
                           onPressBuy();
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: ((context) => BuyShopRoute(
-                                  currentUsername: widget.currentUsername))));
+                          Navigator.of(context).push(PageTransition(
+                              type: PageTransitionType.leftToRightWithFade,
+                              child: BuyShopRoute(
+                                  currentUsername: widget.currentUsername)));
                         }),
                         style:
                             TextButton.styleFrom(backgroundColor: Colors.black),

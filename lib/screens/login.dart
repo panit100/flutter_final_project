@@ -5,6 +5,7 @@ import 'widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
+import 'package:page_transition/page_transition.dart';
 
 class LoginRoute extends StatelessWidget {
   const LoginRoute({super.key});
@@ -121,8 +122,9 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
   void navagatorTo(BuildContext context) {
     Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => BuyShopRoute(currentUsername: username)));
+        PageTransition(
+            type: PageTransitionType.bottomToTop,
+            child: BuyShopRoute(currentUsername: username)));
   }
 
   @override
@@ -242,8 +244,9 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
               onPressed: (() {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const SignUpRoute()));
+                    PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        child: const SignUpRoute()));
               }),
               child: const SizedBox(
                 width: 200,

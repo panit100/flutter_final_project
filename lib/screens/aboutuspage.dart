@@ -1,12 +1,15 @@
 import 'package:final_project/screens/profilepage.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class AboutusRoute extends StatelessWidget {
   const AboutusRoute({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: const Text('About Us')),body: const AboutusPage());
+    return Scaffold(
+        appBar: AppBar(title: const Text('About Us')),
+        body: const AboutusPage());
   }
 }
 
@@ -17,9 +20,7 @@ class AboutusPage extends StatefulWidget {
   State<AboutusPage> createState() => AboutusPageState();
 }
 
-
 class AboutusPageState extends State<AboutusPage> {
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

@@ -4,6 +4,7 @@ import 'widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
+import 'package:page_transition/page_transition.dart';
 
 class SignUpRoute extends StatelessWidget {
   const SignUpRoute({super.key});
@@ -50,8 +51,11 @@ class SignUpInputFieldState extends State<SignUpInputField> {
       if (username != '' && password != '' && email != '') {
         isPass = true;
         addData();
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginRoute()));
+        Navigator.push(
+            context,
+            PageTransition(
+                type: PageTransitionType.bottomToTop,
+                child: const LoginRoute()));
       }
     });
   }
@@ -211,8 +215,9 @@ class SignUpInputFieldState extends State<SignUpInputField> {
               onPressed: (() {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginRoute()));
+                    PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        child: const LoginRoute()));
               }),
               child: const SizedBox(
                 width: 200,

@@ -7,6 +7,7 @@ import 'package:final_project/screens/profilepage.dart';
 import 'package:final_project/screens/orderpage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
+import 'package:page_transition/page_transition.dart';
 import 'dart:convert';
 
 class FavoritePageRoute extends StatefulWidget {
@@ -119,22 +120,25 @@ class FavoritePagePageState extends State<FavoritePageRoute> {
             if (x == 0) {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => ProfileRoute(
+                  PageTransition(
+                      type: PageTransitionType.leftToRightWithFade,
+                      child: ProfileRoute(
                           currentUsername: widget.currentUsername)));
             }
             if (x == 1) {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => OrderPageRoute(
+                  PageTransition(
+                      type: PageTransitionType.leftToRightWithFade,
+                      child: OrderPageRoute(
                           currentUsername: widget.currentUsername)));
             }
             if (x == 2) {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => BuyShopRoute(
+                  PageTransition(
+                      type: PageTransitionType.leftToRightWithFade,
+                      child: BuyShopRoute(
                           currentUsername: widget.currentUsername)));
             }
           }),

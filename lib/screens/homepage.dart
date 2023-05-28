@@ -1,6 +1,7 @@
 import 'package:final_project/screens/login.dart';
 import 'package:final_project/screens/signuppage.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
@@ -52,8 +53,9 @@ class HomePageButtonState extends State<HomePageButton> {
               onPressed: (() {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginRoute()));
+                    PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        child: const LoginRoute()));
               }),
               child: const SizedBox(
                 width: 250,
@@ -78,8 +80,9 @@ class HomePageButtonState extends State<HomePageButton> {
               onPressed: (() {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const SignUpRoute()));
+                    PageTransition(
+                        type: PageTransitionType.bottomToTop,
+                        child: const SignUpRoute()));
               }),
               child: const SizedBox(
                 width: 250,

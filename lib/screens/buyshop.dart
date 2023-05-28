@@ -9,6 +9,7 @@ import 'widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 import 'dart:convert';
+import 'package:page_transition/page_transition.dart';
 
 class BuyShopRoute extends StatefulWidget {
   final String currentUsername;
@@ -134,22 +135,25 @@ class BuyShopPageState extends State<BuyShopRoute> {
               if (x == 0) {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => ProfileRoute(
+                    PageTransition(
+                        type: PageTransitionType.leftToRightWithFade,
+                        child: ProfileRoute(
                             currentUsername: widget.currentUsername)));
               }
               if (x == 1) {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => FavoritePageRoute(
+                    PageTransition(
+                        type: PageTransitionType.leftToRightWithFade,
+                        child: FavoritePageRoute(
                             currentUsername: widget.currentUsername)));
               }
               if (x == 2) {
                 Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => OrderPageRoute(
+                    PageTransition(
+                        type: PageTransitionType.leftToRightWithFade,
+                        child: OrderPageRoute(
                             currentUsername: widget.currentUsername)));
               }
             }));
