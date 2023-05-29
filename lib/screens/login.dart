@@ -96,11 +96,11 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
           navagatorTo(context);
         } else {
           isShow = true;
-          errorText = 'Password is wrong';
+          errorText = 'Password is wrong.';
         }
       } else {
         isShow = true;
-        errorText = 'this Username does not exist';
+        errorText = 'This Username does not exist.';
       }
     }
 
@@ -142,7 +142,7 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
               width: 700,
               child: Text(
                 'Welcome',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 40, fontFamily: 'supermarket'),
                 textAlign: TextAlign.left,
               )),
         ),
@@ -151,19 +151,19 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
           child: SizedBox(
               width: 700,
               child: Text(
-                'Please Login or Sign up to our app',
-                style: TextStyle(fontSize: 15),
+                'Please Login or Sign up to our app.',
+                style: TextStyle(fontSize: 25, fontFamily: 'supermarket'),
                 textAlign: TextAlign.left,
               )),
         ),
         const SizedBox(
-          height: 50,
+          height: 20,
         ),
         const Padding(
           padding: EdgeInsets.only(left: 30),
           child: Text(
             'Username',
-            style: TextStyle(fontSize: 10),
+            style: TextStyle(fontSize: 25, fontFamily: 'supermarket'),
           ),
         ),
         Padding(
@@ -182,7 +182,7 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
           padding: EdgeInsets.only(left: 30),
           child: Text(
             'Password',
-            style: TextStyle(fontSize: 10),
+            style: TextStyle(fontSize: 25, fontFamily: 'supermarket'),
           ),
         ),
         Padding(
@@ -216,7 +216,8 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
                   style: TextStyle(
                       fontSize: 25,
                       color: Colors.white,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'supermarket'),
                 ),
               )),
         ),
@@ -251,11 +252,12 @@ class LoginPageHeaderState extends State<LoginPageHeader> {
               child: const SizedBox(
                 width: 200,
                 child: Text(
-                  "don't have an account? Sign Up",
+                  "Don't have an account? Sign Up",
                   style: TextStyle(
-                      fontSize: 10,
+                      fontSize: 15,
                       color: Colors.black,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'supermarket'),
                 ),
               )),
         ),

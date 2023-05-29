@@ -86,8 +86,10 @@ class BuyShopPageState extends State<BuyShopRoute> {
                 // ),
                 // const SizedBox(height: 25),
                 const Text('Category',
-                    style:
-                        TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                    style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'supermarket')),
                 SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     padding: const EdgeInsets.only(left: 30, right: 30),
@@ -131,6 +133,10 @@ class BuyShopPageState extends State<BuyShopRoute> {
                   label: 'Favorite'),
               BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'Order')
             ],
+            selectedLabelStyle:
+                TextStyle(fontSize: 15, fontFamily: 'supermarket'),
+            unselectedLabelStyle:
+                TextStyle(fontSize: 15, fontFamily: 'supermarket'),
             onTap: (x) {
               if (x == 0) {
                 Navigator.push(

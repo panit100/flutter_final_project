@@ -114,7 +114,9 @@ class ProfliePageState extends State<ProfileRoute> {
           return true;
         },
         child: Scaffold(
-            appBar: AppBar(title: const Text('Profile')),
+            appBar: AppBar(
+                title: const Text('Profile',
+                    style: TextStyle(fontSize: 25, fontFamily: 'supermarket'))),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,7 +127,10 @@ class ProfliePageState extends State<ProfileRoute> {
                 const Center(
                     child: Text(
                   'Account',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'supermarket'),
                   textAlign: TextAlign.left,
                 )),
                 const SizedBox(
@@ -282,9 +287,10 @@ Widget ProfileButton({
                 Text(
                   buttonTitle,
                   style: const TextStyle(
-                      fontSize: 15,
+                      fontSize: 20,
                       color: Colors.white,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'supermarket'),
                 )
               ],
             ),
@@ -294,21 +300,22 @@ Widget ProfileButton({
 Widget ProfileText({required String title}) {
   return Text(
     title,
-    style: const TextStyle(fontSize: 15),
+    style: const TextStyle(fontSize: 20, fontFamily: 'supermarket'),
   );
 }
 
 Widget UsernameText({required String title}) {
   return Text(
     title,
-    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+    style: const TextStyle(
+        fontSize: 25, fontWeight: FontWeight.bold, fontFamily: 'supermarket'),
   );
 }
 
 Widget EmailText({required String title}) {
   return Text(
     title,
-    style: const TextStyle(fontSize: 15),
+    style: const TextStyle(fontSize: 20, fontFamily: 'supermarket'),
   );
 }
 
@@ -327,6 +334,7 @@ Widget UploadImageButton({
                 child: Text(
                   title,
                   textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, fontFamily: 'supermarket'),
                 ),
               ),
             ],

@@ -34,7 +34,10 @@ class AboutusPageState extends State<AboutusPage> {
         const Center(
             child: Text(
           'About us',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'supermarket'),
         )),
         const SizedBox(
           height: 20,
@@ -78,7 +81,7 @@ class AboutusPageState extends State<AboutusPage> {
         Center(
           child: Name(
               title: 'นาย ธีรวัฒน์ ทองปาน',
-              number: '62120501026',
+              number: '62120501070',
               imagePath: 'assets/icons/kei.jpg'),
         ),
         const SizedBox(

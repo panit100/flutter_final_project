@@ -42,7 +42,9 @@ class HomePageButtonState extends State<HomePageButton> {
               child: Center(
                   child: Text('Liberate Goods Shop',
                       style: TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold)))),
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'supermarket')))),
           const SizedBox(
             height: 80,
           ),
@@ -66,7 +68,8 @@ class HomePageButtonState extends State<HomePageButton> {
                     style: TextStyle(
                         fontSize: 25,
                         color: Colors.white,
-                        fontWeight: FontWeight.w400),
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'supermarket'),
                   ),
                 ),
               )),
@@ -93,7 +96,8 @@ class HomePageButtonState extends State<HomePageButton> {
                     style: TextStyle(
                         fontSize: 25,
                         color: Colors.white,
-                        fontWeight: FontWeight.w400),
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'supermarket'),
                   ),
                 ),
               )),

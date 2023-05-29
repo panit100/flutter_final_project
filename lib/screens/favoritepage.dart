@@ -143,7 +143,10 @@ class FavoritePagePageState extends State<FavoritePageRoute> {
             }
           }),
       appBar: AppBar(
-        title: const Text('Favorite'),
+        title: const Text(
+          'Favorite',
+          style: TextStyle(fontSize: 30, fontFamily: 'supermarket'),
+        ),
       ),
       body: SingleChildScrollView(
           child: Column(
@@ -190,18 +193,22 @@ class FavoritePagePageState extends State<FavoritePageRoute> {
                                               child: Text(
                                                   'Order Name: ${e.name.toString()}',
                                                   style: const TextStyle(
-                                                      fontSize: 13,
+                                                      fontSize: 15,
                                                       fontWeight:
-                                                          FontWeight.bold))),
+                                                          FontWeight.bold,
+                                                      fontFamily:
+                                                          'supermarket'))),
                                           Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 20, bottom: 10),
                                               child: Text(
                                                   'Price: ${e.price.toString()}',
                                                   style: const TextStyle(
-                                                      fontSize: 13,
+                                                      fontSize: 15,
                                                       fontWeight:
-                                                          FontWeight.bold))),
+                                                          FontWeight.bold,
+                                                      fontFamily:
+                                                          'supermarket'))),
                                         ]),
                                   ),
                                   Padding(

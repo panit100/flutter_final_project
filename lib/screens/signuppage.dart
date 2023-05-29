@@ -108,7 +108,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
               width: 700,
               child: Text(
                 'Welcome',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 30, fontFamily: 'supermarket'),
                 textAlign: TextAlign.left,
               )),
         ),
@@ -117,8 +117,8 @@ class SignUpInputFieldState extends State<SignUpInputField> {
           child: SizedBox(
               width: 700,
               child: Text(
-                'Please Login or Sign up to our app',
-                style: TextStyle(fontSize: 15),
+                'Please Login or Sign up to our app.',
+                style: TextStyle(fontSize: 25, fontFamily: 'supermarket'),
                 textAlign: TextAlign.left,
               )),
         ),
@@ -129,7 +129,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
           padding: EdgeInsets.only(left: 30),
           child: Text(
             'Username',
-            style: TextStyle(fontSize: 10),
+            style: TextStyle(fontSize: 20, fontFamily: 'supermarket'),
           ),
         ),
         Padding(
@@ -148,7 +148,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
           padding: EdgeInsets.only(left: 30),
           child: Text(
             'Password',
-            style: TextStyle(fontSize: 10),
+            style: TextStyle(fontSize: 20, fontFamily: 'supermarket'),
           ),
         ),
         Padding(
@@ -167,7 +167,7 @@ class SignUpInputFieldState extends State<SignUpInputField> {
           padding: EdgeInsets.only(left: 30),
           child: Text(
             'Email',
-            style: TextStyle(fontSize: 10),
+            style: TextStyle(fontSize: 20, fontFamily: 'supermarket'),
           ),
         ),
         Padding(
@@ -198,7 +198,8 @@ class SignUpInputFieldState extends State<SignUpInputField> {
                   style: TextStyle(
                       fontSize: 25,
                       color: Colors.white,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'supermarket'),
                 ),
               )),
         ),
@@ -224,9 +225,10 @@ class SignUpInputFieldState extends State<SignUpInputField> {
                 child: Text(
                   'Already have an account? Log in',
                   style: TextStyle(
-                      fontSize: 10,
+                      fontSize: 15,
                       color: Colors.black,
-                      fontWeight: FontWeight.w400),
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'supermarket'),
                 ),
               )),
         ),

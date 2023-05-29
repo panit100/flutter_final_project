@@ -274,6 +274,41 @@ class CatagoryState extends State<CatagoryPage> {
     updateOrderList();
   }
 
+  void confirmPurchase(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: const Text('Confirm Purchase'),
+            content: const Text('Are you sure to Purchase?'),
+            actions: [
+              // The "Yes" button
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    onPressBuy();
+                    Navigator.of(context).push(PageTransition(
+                        type: PageTransitionType.leftToRightWithFade,
+                        child: BuyShopRoute(
+                            currentUsername: widget.currentUsername)));
+                  },
+                  child: const Text(
+                    'Yes',
+                    style: TextStyle(fontSize: 20, fontFamily: 'supermarket'),
+                  )),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'No',
+                    style: TextStyle(fontSize: 20, fontFamily: 'supermarket'),
+                  ))
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -318,7 +353,9 @@ class CatagoryState extends State<CatagoryPage> {
                               'TotalPrice ${totalPrice.toString()}',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
-                                  color: Colors.black, fontSize: 20.0),
+                                  color: Colors.black,
+                                  fontSize: 20.0,
+                                  fontFamily: 'supermarket'),
                             ),
                           ),
                         )
@@ -326,11 +363,12 @@ class CatagoryState extends State<CatagoryPage> {
                       const Padding(padding: EdgeInsets.only(left: 100.0)),
                       TextButton(
                         onPressed: (() {
-                          onPressBuy();
-                          Navigator.of(context).push(PageTransition(
-                              type: PageTransitionType.leftToRightWithFade,
-                              child: BuyShopRoute(
-                                  currentUsername: widget.currentUsername)));
+                          confirmPurchase(context);
+                          // onPressBuy();
+                          // Navigator.of(context).push(PageTransition(
+                          //     type: PageTransitionType.leftToRightWithFade,
+                          //     child: BuyShopRoute(
+                          //         currentUsername: widget.currentUsername)));
                         }),
                         style:
                             TextButton.styleFrom(backgroundColor: Colors.black),
@@ -341,7 +379,8 @@ class CatagoryState extends State<CatagoryPage> {
                               style: TextStyle(
                                   fontSize: 15.0,
                                   color: Colors.white,
-                                  backgroundColor: Colors.black),
+                                  backgroundColor: Colors.black,
+                                  fontFamily: 'supermarket'),
                             )),
                       )
                     ]),
@@ -366,29 +405,36 @@ class CatagoryState extends State<CatagoryPage> {
                           mercendiseName.toString(),
                           textAlign: TextAlign.left,
                           style: const TextStyle(
-                              color: Colors.black, fontSize: 30.0),
+                              color: Colors.black,
+                              fontSize: 35.0,
+                              fontFamily: 'supermarket'),
                         ),
                         const SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         Text(
                           description.toString(),
                           textAlign: TextAlign.left,
                           style: const TextStyle(
-                              color: Colors.black, fontSize: 15.0),
+                              color: Colors.black,
+                              fontSize: 20.0,
+                              height: 1,
+                              fontFamily: 'supermarket'),
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 10,
                         ),
                         Text(
                           ('Price ${price.toString()}'),
                           textAlign: TextAlign.left,
                           style: const TextStyle(
-                              color: Colors.black, fontSize: 20.0),
+                              color: Colors.black,
+                              fontSize: 30.0,
+                              fontFamily: 'supermarket'),
                         ),
-                        const SizedBox(
-                          height: 15,
-                        ),
+                        // const SizedBox(
+                        //   height: 15,
+                        // ),
                       ],
                     ),
                   ),
@@ -411,12 +457,14 @@ class CatagoryState extends State<CatagoryPage> {
                           width: 10,
                         ),
                         Container(
-                          width: 50,
+                          width: 40,
                           child: Center(
                             child: Text(
                               amount.toString(),
                               style: const TextStyle(
-                                  color: Colors.black, fontSize: 30.0),
+                                  color: Colors.black,
+                                  fontSize: 30.0,
+                                  fontFamily: 'supermarket'),
                             ),
                           ),
                         ),

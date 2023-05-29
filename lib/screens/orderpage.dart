@@ -98,6 +98,10 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                 ),
                 label: 'Shop')
           ],
+          selectedLabelStyle:
+              TextStyle(fontSize: 15, fontFamily: 'supermarket'),
+          unselectedLabelStyle:
+              TextStyle(fontSize: 15, fontFamily: 'supermarket'),
           onTap: (x) {
             if (x == 0) {
               Navigator.push(
@@ -125,7 +129,10 @@ class OrderPageRouteState extends State<OrderPageRoute> {
             }
           }),
       appBar: AppBar(
-        title: const Text('Order'),
+        title: const Text(
+          'Order',
+          style: TextStyle(fontSize: 30, fontFamily: 'supermarket'),
+        ),
       ),
       body: SingleChildScrollView(
           child: Column(
@@ -135,7 +142,7 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                   padding: const EdgeInsets.only(left: 0, top: 10, bottom: 0),
                   child: Container(
                       color: const Color.fromARGB(141, 172, 172, 172),
-                      width: 390,
+                      width: 450,
                       height: 150,
                       child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
@@ -147,7 +154,7 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                 height: 100,
                               ),
                               Container(
-                                width: 170,
+                                width: 190,
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
@@ -160,27 +167,27 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                           child: Text(
                                               'Order Name: ${e.product.name.toString()}',
                                               style: const TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight:
-                                                      FontWeight.bold))),
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'supermarket'))),
                                       Padding(
                                           padding: const EdgeInsets.only(
                                               left: 20, bottom: 10),
                                           child: Text(
                                               'Price: ${e.product.price.toString()}',
                                               style: const TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight:
-                                                      FontWeight.bold))),
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'supermarket'))),
                                       Padding(
                                           padding: const EdgeInsets.only(
                                               left: 20, bottom: 10),
                                           child: Text(
                                               'Total Price: ${(e.product.price * e.qty).toString()}',
                                               style: const TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight:
-                                                      FontWeight.bold))),
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'supermarket'))),
                                       Padding(
                                           padding: const EdgeInsets.only(
                                               left: 20, bottom: 10),
@@ -188,18 +195,22 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                               text: TextSpan(
                                                   text: 'Status:  ',
                                                   style: TextStyle(
-                                                      fontSize: 13,
+                                                      fontSize: 15,
                                                       fontWeight:
                                                           FontWeight.bold,
-                                                      color: Colors.black),
+                                                      color: Colors.black,
+                                                      fontFamily:
+                                                          'supermarket'),
                                                   children: <TextSpan>[
                                                 TextSpan(
                                                     text:
                                                         '${e.status.toString()}',
                                                     style: TextStyle(
-                                                        fontSize: 13,
+                                                        fontSize: 15,
                                                         fontWeight:
                                                             FontWeight.bold,
+                                                        fontFamily:
+                                                            'supermarket',
                                                         color: Color.fromARGB(
                                                             255, 255, 215, 15),
                                                         shadows: [
@@ -232,11 +243,12 @@ class OrderPageRouteState extends State<OrderPageRoute> {
                                     ]),
                               ),
                               Padding(
-                                  padding: const EdgeInsets.only(left: 80),
+                                  padding: const EdgeInsets.only(left: 60),
                                   child: Text('X ${e.qty.toString()}',
                                       style: const TextStyle(
                                           fontSize: 18,
-                                          fontWeight: FontWeight.bold)))
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'supermarket')))
                             ],
                           )))),
             )
